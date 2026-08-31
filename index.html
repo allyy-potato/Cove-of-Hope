@@ -1351,6 +1351,7 @@ footer button{
 
     <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
   <button
+    id="kindnessRefreshBtn"
     type="button"
     onclick="renderKindnessWall()"
     style="padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;"
@@ -2675,8 +2676,15 @@ function selectKindness(category,button){
 async function renderKindnessWall(){
 
   const wall=document.getElementById("kindnessWall");
+   
+   const refreshBtn=document.getElementById("kindnessRefreshBtn");
 
   if(!wall)return;
+
+   if(refreshBtn){
+  refreshBtn.disabled=true;
+  refreshBtn.textContent="↻ Loading...";
+}
 
   wall.innerHTML=`
     <div style="grid-column:1/-1;text-align:center;padding:60px">
@@ -2787,11 +2795,17 @@ if(
           Please try refreshing the page.
         </p>
       </div>
-    `;
+        `;
 
   }
 
+  if(refreshBtn){
+    refreshBtn.disabled=false;
+    refreshBtn.textContent="↻ Refresh";
+  }
+
 }
+
 
 
 async function deleteKindnessPost(id){
