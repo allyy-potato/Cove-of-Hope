@@ -2481,6 +2481,61 @@ function getOwnerToken() {
 }
 
 async function submitKindness() {
+  const messageInput = document.getElementById("kindnessMessage");
+  const status = document.getElementById("kindnessStatus");
+
+  const message = messageInput.value.trim();
+
+  if (!message) {
+    status.textContent = "Please write a kindness message first.";
+    return;
+  }
+
+  if (message.length > 500) {
+    status.textContent = "Your message is too long. Please keep it under 500 characters.";
+    return;
+  }
+
+  try {
+    status.textContent = "Posting your kindness note...";
+
+    const response = await fetch(
+      `${SUPA_URL}/rest/v1/kindness_posts`,
+      {
+        method: "POST",
+        headers: {
+          "apikey": SUPA_KEY,
+          "Authorization": `Bearer ${SUPA_KEY}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          category: currentKindnessCategory,
+          message: message,
+          owner_token: crypto.randomUUID(),
+          approved: true
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Supabase error:", response.status, errorText);
+      throw new Error(errorText);
+    }
+
+    messageInput.value = "";
+    status.textContent = "✓ Your kindness note was added!";
+
+    await loadKindnessWall();
+
+  } catch (error) {
+    console.error("Kindness Wall error:", error);
+
+    status.textContent =
+      "We couldn't save your kindness note right now. Please try again.";
+  }
+}
 
   const message =
     document.getElementById("kindnessMessage")
