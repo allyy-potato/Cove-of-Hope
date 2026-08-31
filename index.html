@@ -1349,7 +1349,17 @@ footer button{
 
     </div>
 
-    <div class="wall" id="kindnessWall"></div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+  <button
+    type="button"
+    onclick="renderKindnessWall()"
+    style="padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;"
+  >
+    ↻ Refresh
+  </button>
+</div>
+
+<div class="wall" id="kindnessWall"></div>
 
   </div>
 
