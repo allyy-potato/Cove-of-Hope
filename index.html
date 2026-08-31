@@ -2731,9 +2731,13 @@ async function renderKindnessWall(){
 
         wrapper.appendChild(div);
 
-        if(
-          myOwnerToken &&
-          message.owner_token===myOwnerToken
+       const creatorToken=
+  localStorage.getItem("coveCreatorAccessToken");
+
+if(
+  (myOwnerToken && message.owner_token===myOwnerToken) ||
+  creatorToken
+   
         ){
 
           const deleteButton=
@@ -2783,13 +2787,15 @@ async function renderKindnessWall(){
 async function deleteKindnessPost(id){
 
   const ownerToken=
-    localStorage.getItem("coveOwnerToken");
+  localStorage.getItem("coveOwnerToken");
 
-  if(!ownerToken){
-    alert("You can only delete your own messages from this device.");
-    return;
-  }
+const creatorToken=
+  localStorage.getItem("coveCreatorAccessToken");
 
+if(!ownerToken && !creatorToken){
+  alert("You need to be logged in to delete this message.");
+  return;
+}
   const confirmed=
     confirm("Are you sure you want to delete this message?");
 
@@ -2797,17 +2803,25 @@ async function deleteKindnessPost(id){
 
   try{
 
-    const response=await fetch(
-      `${SUPA_URL}/rest/v1/kindness_posts?id=eq.${encodeURIComponent(id)}&owner_token=eq.${encodeURIComponent(ownerToken)}`,
-      {
-        method:"DELETE",
+const isCreator=!!creatorToken;
+
+const deleteUrl=isCreator
+  ? `${SUPA_URL}/rest/v1/kindness_posts?id=eq.${encodeURIComponent(id)}`
+  : `${SUPA_URL}/rest/v1/kindness_posts?id=eq.${encodeURIComponent(id)}&owner_token=eq.${encodeURIComponent(ownerToken)}`;
+
+const response=await fetch(
+  deleteUrl,
+  {
+    method:"DELETE",
 
         headers:{
           "apikey":SUPA_KEY,
-          "Authorization":`Bearer ${SUPA_KEY}`,
-          "Content-Type":"application/json",
-          "x-owner-token":ownerToken
-        }
+          "Authorization":isCreator
+  ? `Bearer ${creatorToken}`
+  : `Bearer ${SUPA_KEY}`, 
+   "Content-Type":"application/json",
+  "x-owner-token":ownerToken
+}
       }
     );
 
