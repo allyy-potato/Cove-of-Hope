@@ -1604,7 +1604,43 @@ footer button{
 
 </main>
 
+<!-- CREATOR LOGIN -->
 
+<section id="creatorLoginSection" style="display:block;padding:30px;text-align:center">
+
+  <div class="card" style="max-width:500px;margin:auto">
+
+    <h2>Creator Login</h2>
+
+    <p class="muted">
+      Creator access for managing the Kindness Wall.
+    </p>
+
+    <input
+      id="creatorEmail"
+      type="email"
+      placeholder="Creator email"
+      style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);margin-bottom:10px"
+    >
+
+    <input
+      id="creatorPassword"
+      type="password"
+      placeholder="Creator password"
+      style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);margin-bottom:10px"
+    >
+
+    <button class="primary-btn" onclick="creatorLogin()">
+      Creator Login
+    </button>
+
+    <p id="creatorLoginStatus" class="muted"></p>
+
+  </div>
+
+</section>
+
+   
 <!-- =========================================================
      FOOTER
      ========================================================= -->
@@ -3525,6 +3561,85 @@ function escapeHTML(text){
 /* ---------- INITIALISE ---------- */
 
 applyTranslations();
+
+async function creatorLogin(){
+
+  const email=
+    document.getElementById("creatorEmail").value.trim();
+
+  const password=
+    document.getElementById("creatorPassword").value;
+
+  const status=
+    document.getElementById("creatorLoginStatus");
+
+  if(!email || !password){
+
+    status.textContent=
+      "Please enter your email and password.";
+
+    return;
+
+  }
+
+  status.textContent="Logging in...";
+
+  try{
+
+    const response=await fetch(
+      `${SUPA_URL}/auth/v1/token?grant_type=password`,
+      {
+        method:"POST",
+
+        headers:{
+          "apikey":SUPA_KEY,
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          email:email,
+          password:password
+        })
+
+      }
+    );
+
+    const data=await response.json();
+
+    if(!response.ok){
+
+      console.error("Creator login error:",data);
+
+      status.textContent=
+        "Login failed. Please check your details.";
+
+      return;
+
+    }
+
+    localStorage.setItem(
+      "coveCreatorAccessToken",
+      data.access_token
+    );
+
+    localStorage.setItem(
+      "coveCreatorRefreshToken",
+      data.refresh_token
+    );
+
+    status.textContent=
+      "Creator login successful! 👑";
+
+  }catch(error){
+
+    console.error(error);
+
+    status.textContent=
+      "Could not connect to Supabase.";
+
+  }
+
+}
 
 </script>
 
