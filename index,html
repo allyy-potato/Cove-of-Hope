@@ -1,0 +1,3347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cove of Hope</title>
+
+<style>
+/* =========================================================
+   COVE OF HOPE — COMPLETE SINGLE-FILE WEBSITE
+   HTML + CSS + JAVASCRIPT
+   ========================================================= */
+
+:root{
+  --bg:#f5eef9;
+  --surface:#ffffff;
+  --surface2:#eee4f5;
+  --text:#30263a;
+  --muted:#6e6177;
+  --primary:#8c62b8;
+  --primary2:#b983d4;
+  --accent:#ef91c4;
+  --accent2:#d9a7ee;
+  --buttonText:#ffffff;
+  --border:rgba(80,50,100,.15);
+  --shadow:0 10px 30px rgba(65,35,80,.12);
+  --header:#ffffff;
+  --footer:#3d2852;
+}
+
+/* ---------- THEMES ---------- */
+
+body.theme-pastel{
+  --bg:#f7eff8;
+  --surface:#fffafd;
+  --surface2:#f0e3f4;
+  --text:#3b2c42;
+  --muted:#75677c;
+  --primary:#a56bb8;
+  --primary2:#d99bd9;
+  --accent:#f3a7c8;
+  --accent2:#b9a0df;
+  --header:#fffafd;
+  --footer:#62406f;
+}
+
+body.theme-neutral{
+  --bg:#eeeae4;
+  --surface:#faf8f4;
+  --surface2:#e1ddd6;
+  --text:#393632;
+  --muted:#706b64;
+  --primary:#77736c;
+  --primary2:#a39e94;
+  --accent:#c9a88d;
+  --accent2:#aaa59d;
+  --header:#faf8f4;
+  --footer:#45423d;
+}
+
+body.theme-beach{
+  --bg:#dff1ef;
+  --surface:#f9ffff;
+  --surface2:#c5e4df;
+  --text:#21444a;
+  --muted:#547176;
+  --primary:#4f8f91;
+  --primary2:#80b7b1;
+  --accent:#e5b48d;
+  --accent2:#9ed9d4;
+  --header:#f9ffff;
+  --footer:#285d62;
+}
+
+body.theme-purple90{
+  --bg:#ddd2e9;
+  --surface:#f6f0fa;
+  --surface2:#c4b1d5;
+  --text:#3d294c;
+  --muted:#695576;
+  --primary:#76529a;
+  --primary2:#a978b9;
+  --accent:#df91b8;
+  --accent2:#c49bdb;
+  --header:#f6f0fa;
+  --footer:#412653;
+}
+
+body.theme-cool{
+  --bg:#dceff0;
+  --surface:#f8ffff;
+  --surface2:#c7e0e2;
+  --text:#27404a;
+  --muted:#557078;
+  --primary:#56879a;
+  --primary2:#7db4b8;
+  --accent:#d990b4;
+  --accent2:#9dd1c6;
+  --header:#f8ffff;
+  --footer:#315764;
+}
+
+body.theme-deep{
+  --bg:#dce1e7;
+  --surface:#f8f7f2;
+  --surface2:#c4cbd3;
+  --text:#202d3c;
+  --muted:#5f6871;
+  --primary:#355878;
+  --primary2:#63819a;
+  --accent:#caa77e;
+  --accent2:#9babb9;
+  --header:#f8f7f2;
+  --footer:#263c52;
+}
+
+body.theme-mountains{
+  --bg:#e0dce9;
+  --surface:#faf8fc;
+  --surface2:#c7bfd7;
+  --text:#332b40;
+  --muted:#665c70;
+  --primary:#655493;
+  --primary2:#8473b5;
+  --accent:#b55a83;
+  --accent2:#9b83cf;
+  --header:#faf8fc;
+  --footer:#3b315c;
+}
+
+body.theme-egg{
+  --bg:#e8f7ee;
+  --surface:#ffffff;
+  --surface2:#c9f4df;
+  --text:#172e35;
+  --muted:#526970;
+  --primary:#0e0fed;
+  --primary2:#8bf0ba;
+  --accent:#f2b1d8;
+  --accent2:#ffdc6a;
+  --header:#ffffff;
+  --footer:#101b72;
+}
+
+/* ---------- GENERAL ---------- */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  transition:background .5s ease,color .3s ease;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:var(--primary);
+  font-weight:600;
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* ---------- LANGUAGE / THEME START SCREEN ---------- */
+
+#setupScreen{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  background:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px),
+    #21152f;
+  background-size:35px 35px;
+  color:white;
+}
+
+.setup-card{
+  width:min(900px,100%);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(18px);
+  border-radius:30px;
+  padding:45px;
+  text-align:center;
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+
+.setup-card h1{
+  font-size:clamp(2rem,5vw,4rem);
+  margin:10px 0;
+}
+
+.setup-card p{
+  color:#e6dced;
+}
+
+.setup-step{
+  margin-top:30px;
+}
+
+.option-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+
+.option-btn{
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.09);
+  color:white;
+  border-radius:16px;
+  padding:16px;
+  transition:.25s;
+}
+
+.option-btn:hover,
+.option-btn.selected{
+  background:rgba(255,255,255,.18);
+  transform:translateY(-3px);
+  border-color:#ef91c4;
+}
+
+.start-btn{
+  margin-top:30px;
+  padding:15px 30px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,#ef91c4,#a978d8);
+  color:white;
+  font-weight:bold;
+  font-size:1rem;
+}
+
+/* ---------- LOGO ---------- */
+
+.logo{
+  text-align:center;
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+}
+
+.logo-star{
+  width:58px;
+  height:58px;
+  position:relative;
+  margin-bottom:7px;
+}
+
+.logo-star::before,
+.logo-star::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  background:linear-gradient(135deg,#ff49bd,#8d49d6);
+  clip-path:polygon(
+    50% 0,
+    60% 38%,
+    100% 50%,
+    60% 62%,
+    50% 100%,
+    40% 62%,
+    0 50%,
+    40% 38%
+  );
+  filter:drop-shadow(0 0 7px #d34dcc);
+}
+
+.logo-star::after{
+  inset:18px;
+  background:#21152f;
+}
+
+.logo-a{
+  position:absolute;
+  z-index:3;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:900;
+  color:white;
+}
+
+.logo-name{
+  font-weight:900;
+  letter-spacing:3px;
+  color:white;
+  font-size:19px;
+}
+
+.logo-tag{
+  color:#d9b8e9;
+  font-size:8px;
+  letter-spacing:3px;
+  margin-top:4px;
+}
+
+/* ---------- HEADER ---------- */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:var(--header);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
+
+.navbar{
+  max-width:1250px;
+  margin:auto;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.nav-brand .logo-star{
+  transform:scale(.62);
+  transform-origin:center bottom;
+  margin-bottom:-5px;
+}
+
+.nav-brand .logo-name{
+  color:var(--text);
+  font-size:14px;
+}
+
+.nav-brand .logo-tag{
+  color:var(--muted);
+}
+
+.nav-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:7px;
+}
+
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:var(--text);
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:600;
+}
+
+.nav-btn:hover{
+  background:var(--surface2);
+}
+
+.nav-actions{
+  display:flex;
+  gap:8px;
+}
+
+.small-btn{
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  padding:8px 11px;
+  border-radius:10px;
+}
+
+/* ---------- PAGES ---------- */
+
+main{
+  min-height:70vh;
+}
+
+.page{
+  display:none;
+  max-width:1200px;
+  margin:auto;
+  padding:55px 22px 80px;
+  animation:pageIn .45s ease;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.hero{
+  min-height:560px;
+  border-radius:34px;
+  padding:65px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 85% 20%,var(--accent),transparent 27%),
+    radial-gradient(circle at 20% 90%,var(--accent2),transparent 28%),
+    var(--surface);
+  box-shadow:var(--shadow);
+}
+
+.hero-content{
+  max-width:700px;
+  position:relative;
+  z-index:2;
+}
+
+.eyebrow{
+  color:var(--primary);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-weight:bold;
+  font-size:.8rem;
+}
+
+.hero h1{
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.95;
+  margin:15px 0 25px;
+}
+
+.hero p{
+  font-size:1.15rem;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:650px;
+}
+
+.btn-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:28px;
+}
+
+.primary-btn,
+.secondary-btn{
+  border-radius:999px;
+  padding:14px 22px;
+  border:0;
+  font-weight:bold;
+}
+
+.primary-btn{
+  background:var(--primary);
+  color:white;
+}
+
+.secondary-btn{
+  background:var(--surface2);
+  color:var(--text);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* ---------- FLOATING ANIMAL ---------- */
+
+.animal-area{
+  position:absolute;
+  right:5%;
+  bottom:30px;
+  width:270px;
+  height:250px;
+}
+
+.animal{
+  position:absolute;
+  left:50%;
+  bottom:35px;
+  transform:translateX(-50%);
+  font-size:90px;
+  animation:animalBounce 2s ease-in-out infinite;
+}
+
+.activity-object{
+  position:absolute;
+  left:50%;
+  top:10px;
+  font-size:50px;
+  animation:objectFloat 2s ease-in-out infinite;
+}
+
+@keyframes animalBounce{
+  0%,100%{transform:translate(-50%,0) rotate(-3deg)}
+  50%{transform:translate(-50%,-18px) rotate(3deg)}
+}
+
+@keyframes objectFloat{
+  0%,100%{transform:translateX(-50%) rotate(-8deg)}
+  50%{transform:translateX(-50%) translateY(-10px) rotate(8deg)}
+}
+
+/* ---------- CONTENT CARDS ---------- */
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
+}
+
+.section-title{
+  font-size:clamp(1.8rem,4vw,3rem);
+  margin:0 0 12px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.welcome-box{
+  margin-top:25px;
+  min-height:130px;
+  border:2px dashed var(--border);
+  border-radius:20px;
+  padding:22px;
+}
+
+.editable{
+  outline:none;
+}
+
+.editable:focus{
+  border-color:var(--primary);
+}
+
+/* ---------- EMOTIONS ---------- */
+
+.emotion-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+  gap:12px;
+  margin-top:20px;
+}
+
+.emotion-btn{
+  border:1px solid var(--border);
+  background:var(--surface2);
+  color:var(--text);
+  border-radius:18px;
+  padding:17px 10px;
+  transition:.25s;
+}
+
+.emotion-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+}
+
+.emotion-result{
+  margin-top:25px;
+  display:none;
+}
+
+.emotion-result.show{
+  display:block;
+}
+
+.quote{
+  font-size:1.4rem;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.suggestion{
+  padding:12px 15px;
+  border-radius:13px;
+  background:var(--surface2);
+  margin:8px 0;
+}
+
+/* ---------- PAGE 2 ---------- */
+
+.emotion-chip{
+  display:inline-block;
+  background:var(--accent);
+  padding:9px 15px;
+  border-radius:999px;
+  font-weight:bold;
+}
+
+.expression-choice{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.choice-card{
+  border:2px solid var(--border);
+  background:var(--surface);
+  border-radius:25px;
+  padding:30px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.choice-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--primary);
+}
+
+.big-icon{
+  font-size:55px;
+}
+
+textarea{
+  width:100%;
+  min-height:230px;
+  resize:vertical;
+  border:2px solid var(--border);
+  border-radius:18px;
+  background:var(--surface);
+  color:var(--text);
+  padding:18px;
+  outline:none;
+}
+
+textarea:focus{
+  border-color:var(--primary);
+}
+
+canvas{
+  width:100%;
+  max-width:800px;
+  height:430px;
+  border:2px solid var(--border);
+  border-radius:18px;
+  background:white;
+  touch-action:none;
+  display:block;
+}
+
+/* ---------- JOURNAL ENTRIES ---------- */
+
+.entries{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+
+.entry{
+  background:var(--surface2);
+  border-radius:18px;
+  padding:18px;
+}
+
+/* ---------- KINDNESS WALL ---------- */
+
+.wall{
+  min-height:450px;
+  border-radius:25px;
+  padding:25px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),
+    var(--surface2);
+  background-size:30px 30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:20px;
+  align-content:start;
+}
+
+.sticky{
+  min-height:160px;
+  padding:20px;
+  background:var(--accent);
+  border-radius:4px;
+  box-shadow:5px 8px 14px rgba(0,0,0,.13);
+  transform:rotate(-1deg);
+}
+
+.sticky:nth-child(2n){
+  transform:rotate(2deg);
+  background:var(--accent2);
+}
+
+.sticky:nth-child(3n){
+  transform:rotate(-2deg);
+}
+
+.category-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.category-btn{
+  border:1px solid var(--border);
+  background:var(--surface2);
+  color:var(--text);
+  border-radius:999px;
+  padding:11px 17px;
+}
+
+.category-btn.active{
+  background:var(--primary);
+  color:white;
+}
+
+/* ---------- ACTIVITIES ---------- */
+
+.activity-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:18px;
+}
+
+.activity-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:24px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.activity-card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.exercise{
+  border-left:5px solid var(--primary);
+  padding:18px;
+  background:var(--surface2);
+  border-radius:14px;
+  margin:15px 0;
+}
+
+.timer{
+  font-size:3rem;
+  font-weight:bold;
+  text-align:center;
+  margin:20px;
+}
+
+.link-card{
+  display:block;
+  padding:18px;
+  margin:12px 0;
+  background:var(--surface2);
+  border-radius:15px;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.link-card:hover{
+  outline:2px solid var(--primary);
+}
+
+/* ---------- SUPPORT ---------- */
+
+.support-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:16px;
+}
+
+.support-card{
+  padding:24px;
+  border-radius:22px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+/* ---------- ABOUT ---------- */
+
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+/* ---------- MODALS ---------- */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,30,.6);
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--surface);
+  color:var(--text);
+  border-radius:25px;
+  padding:28px;
+}
+
+.close{
+  float:right;
+  border:0;
+  background:var(--surface2);
+  color:var(--text);
+  border-radius:50%;
+  width:35px;
+  height:35px;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer{
+  background:var(--footer);
+  color:white;
+  padding:50px 22px 25px;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr 1fr;
+  gap:30px;
+}
+
+footer h3{
+  margin-top:0;
+}
+
+footer button{
+  display:block;
+  background:none;
+  border:0;
+  color:#eee;
+  padding:7px 0;
+  text-align:left;
+}
+
+.footer-message{
+  text-align:center;
+  margin-top:35px;
+  padding-top:25px;
+  border-top:1px solid rgba(255,255,255,.2);
+  font-size:1.15rem;
+  font-weight:bold;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width:850px){
+  .navbar{
+    flex-direction:column;
+  }
+
+  .hero{
+    padding:40px 28px;
+  }
+
+  .animal-area{
+    opacity:.25;
+    right:-30px;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:600px){
+  .expression-choice{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .setup-card{
+    padding:28px 20px;
+  }
+}
+</style>
+</head>
+
+<body class="theme-pastel">
+
+<!-- =========================================================
+     START / LANGUAGE + THEME SELECTION
+     ========================================================= -->
+
+<section id="setupScreen">
+
+  <div class="setup-card">
+
+    <div class="logo">
+      <div class="logo-star">
+        <span class="logo-a">A</span>
+      </div>
+      <div class="logo-name">COVE OF HOPE</div>
+      <div class="logo-tag">A SITE TO FEEL CONNECTED</div>
+    </div>
+
+    <h1 id="setupTitle">Welcome to Cove of Hope</h1>
+    <p id="setupDescription">
+      A safe space to express your feelings, find calm, spread kindness,
+      and discover support.
+    </p>
+
+    <div class="setup-step">
+      <h2 id="languageQuestion">Choose your language</h2>
+
+      <div class="option-grid">
+        <button class="option-btn" onclick="chooseLanguage('en',this)">English</button>
+        <button class="option-btn" onclick="chooseLanguage('zh',this)">中文</button>
+        <button class="option-btn" onclick="chooseLanguage('ms',this)">Bahasa Melayu</button>
+        <button class="option-btn" onclick="chooseLanguage('ja',this)">日本語</button>
+        <button class="option-btn" onclick="chooseLanguage('ko',this)">한국어</button>
+        <button class="option-btn" onclick="chooseLanguage('fr',this)">Français</button>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <h2 id="themeQuestion">Choose your colour theme</h2>
+
+      <div class="option-grid">
+        <button class="option-btn" onclick="chooseTheme('pastel',this)">Soft Pastel Colours</button>
+        <button class="option-btn" onclick="chooseTheme('neutral',this)">Neutral Colours</button>
+        <button class="option-btn" onclick="chooseTheme('beach',this)">Minimal Soft Beach</button>
+        <button class="option-btn" onclick="chooseTheme('purple90',this)">Minimal Purple 90's</button>
+        <button class="option-btn" onclick="chooseTheme('cool',this)">Cool Pinky Blue Green</button>
+        <button class="option-btn" onclick="chooseTheme('deep',this)">Deep Blue and Tan</button>
+        <button class="option-btn" onclick="chooseTheme('mountains',this)">Mountains</button>
+        <button class="option-btn" onclick="chooseTheme('egg',this)">Easter Egg Sandwich</button>
+      </div>
+    </div>
+
+    <button class="start-btn" onclick="enterWebsite()" id="enterBtn">
+      Enter Cove of Hope
+    </button>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     WEBSITE
+     ========================================================= -->
+
+<div id="website" class="hidden">
+
+<header>
+
+<nav class="navbar">
+
+  <button class="nav-brand nav-btn" onclick="showPage('home')">
+
+    <div class="logo">
+
+      <div class="logo-star">
+        <span class="logo-a">A</span>
+      </div>
+
+      <div class="logo-name">COVE OF HOPE</div>
+      <div class="logo-tag">A SITE TO FEEL CONNECTED</div>
+
+    </div>
+
+  </button>
+
+  <div class="nav-links">
+
+    <button class="nav-btn" onclick="showPage('home')" data-i18n="home">Home</button>
+
+    <button class="nav-btn" onclick="showPage('emotions')" data-i18n="express">
+      Express
+    </button>
+
+    <button class="nav-btn" onclick="showPage('kindness')" data-i18n="kindness">
+      Kindness
+    </button>
+
+    <button class="nav-btn" onclick="showPage('activities')" data-i18n="activities">
+      Activities
+    </button>
+
+    <button class="nav-btn" onclick="showPage('support')" data-i18n="support">
+      Support
+    </button>
+
+    <button class="nav-btn" onclick="showPage('about')" data-i18n="about">
+      About Us
+    </button>
+
+  </div>
+
+  <div class="nav-actions">
+    <button class="small-btn" onclick="openSafety()" data-i18n="safety">Safety</button>
+    <button class="small-btn" onclick="openReport()" data-i18n="report">Report</button>
+  </div>
+
+</nav>
+
+</header>
+
+
+<main>
+
+<!-- =========================================================
+     PAGE 1 — HOME
+     ========================================================= -->
+
+<section id="home" class="page active">
+
+  <div class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">Cove of Hope</div>
+
+      <h1 data-i18n="heroTitle">Your feelings matter.</h1>
+
+      <p data-i18n="heroSubtitle">
+        A safe space to express your feelings, find calm,
+        spread kindness, and discover support.
+      </p>
+
+      <div class="btn-row">
+
+        <button class="primary-btn"
+        onclick="showPage('emotions')"
+        data-i18n="exploreSafe">
+          Explore the Safe Space
+        </button>
+
+        <button class="secondary-btn"
+        onclick="showPage('support')"
+        data-i18n="needSupport">
+          I Need Support
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="animal-area">
+
+      <div class="activity-object">🌱</div>
+
+      <div class="animal">🐻</div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="section-title" data-i18n="welcomeTitle">
+      Welcome to Cove of Hope
+    </h2>
+
+    <div
+      class="welcome-box editable"
+      contenteditable="true"
+      data-i18n="welcomeText"
+    >
+      Welcome. Whatever kind of day you're having, you deserve a place
+      where your feelings can exist without judgement.
+    </div>
+
+    <p class="muted">
+      ✏️ This message is editable. Click on it and replace it with your
+      own welcoming message.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 class="section-title" data-i18n="feelingQuestion">
+      How are you feeling today?
+    </h2>
+
+    <p class="muted" data-i18n="feelingSubtitle">
+      There is no right or wrong answer.
+    </p>
+
+    <div class="emotion-grid" id="emotionGrid"></div>
+
+    <div id="emotionResult" class="emotion-result card">
+
+      <div class="emotion-chip" id="chosenEmotion"></div>
+
+      <p class="quote" id="emotionQuote"></p>
+
+      <p id="emotionNote"></p>
+
+      <div id="emotionSuggestions"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     PAGE 2 — EXPRESS YOUR EMOTIONS
+     ========================================================= -->
+
+<section id="emotions" class="page">
+
+  <div class="card">
+
+    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center">
+
+      <div>
+        <div class="eyebrow" data-i18n="page2">PAGE 2</div>
+        <h1 class="section-title" data-i18n="expressTitle">
+          Express Your Emotions
+        </h1>
+      </div>
+
+      <div>
+        <span class="emotion-chip" id="topEmotion">No emotion selected</span>
+      </div>
+
+    </div>
+
+    <p class="muted" data-i18n="expressionQuestion">
+      How would you like to express your feelings?
+    </p>
+
+  </div>
+
+
+  <div id="expressionChoices" class="expression-choice">
+
+    <div class="choice-card" onclick="openJournal()">
+      <div class="big-icon">📖</div>
+      <h2 data-i18n="journal">Journaling & Writing</h2>
+      <p class="muted" data-i18n="journalDesc">
+        Put your thoughts into words.
+      </p>
+    </div>
+
+    <div class="choice-card" onclick="openDrawing()">
+      <div class="big-icon">🎨</div>
+      <h2 data-i18n="drawing">Drawing & Doodling</h2>
+      <p class="muted" data-i18n="drawingDesc">
+        Express yourself without needing words.
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- JOURNAL -->
+
+  <div id="journalArea" class="card hidden">
+
+    <button class="secondary-btn" onclick="backExpression()">← Back</button>
+
+    <h2 data-i18n="journalTitle">Your private journal</h2>
+
+    <textarea id="journalText"
+    placeholder="Write whatever is on your mind..."></textarea>
+
+    <div class="btn-row">
+
+      <button class="primary-btn" onclick="saveJournal()"
+      data-i18n="saveEntry">
+        Save Entry
+      </button>
+
+      <button class="secondary-btn" onclick="clearJournal()"
+      data-i18n="clear">
+        Clear
+      </button>
+
+    </div>
+
+    <div id="journalEntries" class="entries" style="margin-top:25px"></div>
+
+  </div>
+
+
+  <!-- DRAWING -->
+
+  <div id="drawingArea" class="card hidden">
+
+    <button class="secondary-btn" onclick="backExpression()">← Back</button>
+
+    <h2 data-i18n="drawingTitle">Your drawing space</h2>
+
+    <p class="muted">
+      Draw freely. You don't have to make it perfect.
+    </p>
+
+    <canvas id="drawCanvas" width="900" height="500"></canvas>
+
+    <div class="btn-row">
+
+      <button class="primary-btn"
+      onclick="saveDrawing()"
+      data-i18n="saveDrawing">
+        Save Drawing
+      </button>
+
+      <button class="secondary-btn"
+      onclick="clearCanvas()"
+      data-i18n="clearDrawing">
+        Clear Drawing
+      </button>
+
+    </div>
+
+    <div id="savedDrawings" class="entries" style="margin-top:25px"></div>
+
+    <p class="muted" style="margin-top:30px">
+      🔒 <strong>Private by design.</strong>
+      Cove of Hope has no inbox, no public profile, and no person reading this page.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     PAGE 3 — KINDNESS WALL
+     ========================================================= -->
+
+<section id="kindness" class="page">
+
+  <div class="card">
+
+    <div class="eyebrow">PAGE 3</div>
+
+    <h1 class="section-title" data-i18n="kindnessTitle">
+      Kindness Wall
+    </h1>
+
+    <p class="muted" data-i18n="kindnessSubtitle">
+      Choose what you need to hear today.
+    </p>
+
+    <div class="category-grid">
+
+      <button class="category-btn active"
+      onclick="selectKindness('alone',this)">
+        💜 You are not alone
+      </button>
+
+      <button class="category-btn"
+      onclick="selectKindness('can',this)">
+        🌱 You can do this
+      </button>
+
+      <button class="category-btn"
+      onclick="selectKindness('important',this)">
+        ⭐ You are important
+      </button>
+
+      <button class="category-btn"
+      onclick="selectKindness('enough',this)">
+        🌷 You are enough
+      </button>
+
+      <button class="category-btn"
+      onclick="selectKindness('proud',this)">
+        🌈 You can be proud of yourself
+      </button>
+
+      <button class="category-btn"
+      onclick="selectKindness('hope',this)">
+        ☀️ There is still hope
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap">
+
+      <div>
+        <h2 id="wallTitle">You are not alone</h2>
+        <p class="muted">
+          Messages submitted by visitors will appear here after
+          a real shared database is connected.
+        </p>
+      </div>
+
+      <button class="primary-btn" onclick="openKindnessForm()">
+        + Leave a Kind Message
+      </button>
+
+    </div>
+
+    <div class="wall" id="kindnessWall"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     PAGE 4 — ACTIVITIES
+     ========================================================= -->
+
+<section id="activities" class="page">
+
+  <div class="card">
+
+    <div class="eyebrow">PAGE 4</div>
+
+    <h1 class="section-title" data-i18n="activitiesTitle">
+      Calming & Interactive Activities
+    </h1>
+
+    <p class="muted">
+      Choose something that matches what you need right now.
+    </p>
+
+  </div>
+
+
+  <div class="activity-grid">
+
+    <div class="activity-card" onclick="showActivity('breathing')">
+      <div class="big-icon">🌬️</div>
+      <h2>Calming Activities</h2>
+      <p class="muted">
+        Breathing techniques and a mindful minute.
+      </p>
+    </div>
+
+    <div class="activity-card" onclick="showActivity('look')">
+      <div class="big-icon">👀</div>
+      <h2>Look Around Me</h2>
+      <p class="muted">
+        Gentle activities to notice positive things around you.
+      </p>
+    </div>
+
+    <div class="activity-card" onclick="showActivity('games')">
+      <div class="big-icon">🎮</div>
+      <h2>Interactive Game Apps</h2>
+      <p class="muted">
+        Short interactive activities.
+      </p>
+    </div>
+
+    <div class="activity-card" onclick="showActivity('break')">
+      <div class="big-icon">☕</div>
+      <h2>Take a Break</h2>
+      <p class="muted">
+        Give your mind a little breathing room.
+      </p>
+    </div>
+
+    <div class="activity-card" onclick="showActivity('create')">
+      <div class="big-icon">🧩</div>
+      <h2>Create an Interactive Mini Game</h2>
+      <p class="muted">
+        Turn your own idea into something playable.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div id="activityContent" class="card hidden" style="margin-top:25px"></div>
+
+</section>
+
+
+<!-- =========================================================
+     PAGE 5 — SUPPORT
+     ========================================================= -->
+
+<section id="support" class="page">
+
+  <div class="card">
+
+    <div class="eyebrow">PAGE 5</div>
+
+    <h1 class="section-title" data-i18n="supportTitle">
+      Support Resources
+    </h1>
+
+    <p class="muted">
+      You don't have to figure everything out alone.
+    </p>
+
+  </div>
+
+
+  <div class="support-grid">
+
+    <div class="support-card">
+
+      <div class="big-icon">📞</div>
+
+      <h2>Helpline & Support Services</h2>
+
+      <p>Find an organisation that may be able to support you.</p>
+
+      <button class="primary-btn" onclick="showSupport('helpline')">
+        Explore
+      </button>
+
+    </div>
+
+
+    <div class="support-card">
+
+      <div class="big-icon">💬</div>
+
+      <h2>Someone to Talk To</h2>
+
+      <p>Learn how you can reach out to someone you trust.</p>
+
+      <button class="primary-btn" onclick="showSupport('talk')">
+        Explore
+      </button>
+
+    </div>
+
+
+    <div class="support-card">
+
+      <div class="big-icon">🏫</div>
+
+      <h2>Support at School</h2>
+
+      <p>Explore ways to approach teachers, counsellors and other adults.</p>
+
+      <button class="primary-btn" onclick="showSupport('school')">
+        Explore
+      </button>
+
+    </div>
+
+
+    <div class="support-card">
+
+      <div class="big-icon">🫶</div>
+
+      <h2>Trusted Adult</h2>
+
+      <p>Think about an adult who could listen and help you.</p>
+
+      <button class="primary-btn" onclick="showSupport('adult')">
+        Explore
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="supportContent" class="card hidden" style="margin-top:25px"></div>
+
+</section>
+
+
+<!-- =========================================================
+     PAGE 6 — ABOUT US
+     ========================================================= -->
+
+<section id="about" class="page">
+
+  <div class="card">
+
+    <div class="eyebrow">PAGE 6</div>
+
+    <h1 class="section-title">About Us</h1>
+
+    <p class="muted">
+      The story and purpose behind Cove of Hope.
+    </p>
+
+  </div>
+
+
+  <div class="about-grid">
+
+    <div class="card">
+
+      <h2>Our story behind the Cove of Hope</h2>
+
+      <p>
+        We had a friend that was experiencing bullying and he often felt lonely.
+        His friends were leaving him out when they made plans, and that affected
+        him too. Since we were from different countries and both had busy
+        schedules, we couldn't talk much and he would feel unseen and all alone
+        from time to time. He would feel bored and discouraged very often as well.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Our mission</h2>
+
+      <p>
+        We designed the Cove of Hope, in hopes that people in similar situations
+        have somewhere where they can express their emotions, receive and send
+        encouraging messages with others, experience interactive calming games
+        and have access to support resources.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Our values</h2>
+
+      <p>
+        Kindness, hope, inclusion and respect.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>What we can and cannot do</h2>
+
+      <h3>We can:</h3>
+
+      <p>
+        Be a private notebook, a kindness wall, a collection of calming prompts,
+        and a bridge toward the people in your life.
+      </p>
+
+      <h3>We cannot:</h3>
+
+      <p>
+        Be a therapist, emergency service, crisis line, or replacement for
+        a trusted person who can be with you.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+<div class="footer-inner">
+
+  <div class="footer-grid">
+
+    <div>
+
+      <div class="logo">
+
+        <div class="logo-star">
+          <span class="logo-a">A</span>
+        </div>
+
+        <div class="logo-name">COVE OF HOPE</div>
+        <div class="logo-tag">A SITE TO FEEL CONNECTED</div>
+
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <h3 data-i18n="explore">Explore</h3>
+
+      <button onclick="showPage('home')">Motivation / Home</button>
+      <button onclick="showPage('emotions')">Express Your Emotions</button>
+      <button onclick="showPage('kindness')">Kindness Wall</button>
+      <button onclick="showPage('activities')">Calming Activities</button>
+      <button onclick="showPage('support')">Support Resources</button>
+
+    </div>
+
+
+    <div>
+
+      <h3 data-i18n="support">Support</h3>
+
+      <button onclick="showPage('support')">Get Help</button>
+      <button onclick="openSafety()">Safety Information</button>
+      <button onclick="openReport()">Report Something</button>
+
+    </div>
+
+
+    <div>
+
+      <h3 data-i18n="about">About Us</h3>
+
+      <button onclick="showPage('about')">
+        About Cove of Hope
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-message">
+    You deserve to feel safe, heard and seen.
+  </div>
+
+</div>
+
+</footer>
+
+</div>
+
+
+<!-- =========================================================
+     SAFETY MODAL
+     ========================================================= -->
+
+<div id="safetyModal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('safetyModal')">×</button>
+
+    <h2>Safety Information</h2>
+
+    <p>
+      Cove of Hope is designed with privacy in mind.
+    </p>
+
+    <p>
+      Your journal entries and drawings are stored locally on your device
+      in this version of the website. They are not sent to our team.
+    </p>
+
+    <p>
+      Cove of Hope does not have a public profile system or an inbox.
+      We do not ask users to share personal information to use the
+      activities.
+    </p>
+
+    <p>
+      <strong>You can edit this safety information before publishing.</strong>
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     REPORT MODAL
+     ========================================================= -->
+
+<div id="reportModal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('reportModal')">×</button>
+
+    <h2>Report Something</h2>
+
+    <p>
+      Use this form to report problems, suggestions, inappropriate messages,
+      or anything else you think should be brought to the attention of the
+      website creator.
+    </p>
+
+    <select id="reportType" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text)">
+      <option>Problem with the website</option>
+      <option>Suggestion for improvement</option>
+      <option>Disturbing or inappropriate message</option>
+      <option>Something else</option>
+    </select>
+
+    <textarea id="reportText"
+      placeholder="Describe what you would like to report..."
+      style="margin-top:12px"></textarea>
+
+    <button class="primary-btn" onclick="submitReport()">
+      Submit Report
+    </button>
+
+    <p id="reportStatus" class="muted"></p>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     KINDNESS MODAL
+     ========================================================= -->
+
+<div id="kindnessModal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('kindnessModal')">×</button>
+
+    <h2>Leave a Kind Message</h2>
+
+    <p>
+      Write something positive that another person might need to hear.
+    </p>
+
+    <select id="kindnessCategory"
+      style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text)">
+
+      <option value="alone">You are not alone</option>
+      <option value="can">You can do this</option>
+      <option value="important">You are important</option>
+      <option value="enough">You are enough</option>
+      <option value="proud">You can be proud of yourself</option>
+      <option value="hope">There is still hope</option>
+
+    </select>
+
+    <textarea
+      id="kindnessText"
+      placeholder="Write a kind message..."
+      style="margin-top:12px"></textarea>
+
+    <button class="primary-btn" onclick="saveKindness()">
+      Add Message
+    </button>
+
+    <p class="muted">
+      Messages containing obviously harmful or negative language are
+      automatically blocked by the basic safety filter.
+    </p>
+
+  </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   COVE OF HOPE JAVASCRIPT
+   ========================================================= */
+
+/* ---------- LANGUAGE SYSTEM ---------- */
+
+let currentLanguage = "en";
+let currentTheme = "pastel";
+let selectedEmotion = "";
+let selectedKindness = "alone";
+
+const translations = {
+
+en:{
+  home:"Home",
+  express:"Express",
+  kindness:"Kindness",
+  activities:"Activities",
+  support:"Support",
+  about:"About Us",
+  safety:"Safety",
+  report:"Report",
+  explore:"Explore",
+  heroTitle:"Your feelings matter.",
+  heroSubtitle:"A safe space to express your feelings, find calm, spread kindness, and discover support.",
+  exploreSafe:"Explore the Safe Space",
+  needSupport:"I Need Support",
+  welcomeTitle:"Welcome to Cove of Hope",
+  welcomeText:"Welcome. Whatever kind of day you're having, you deserve a place where your feelings can exist without judgement.",
+  feelingQuestion:"How are you feeling today?",
+  feelingSubtitle:"There is no right or wrong answer.",
+  page2:"PAGE 2",
+  expressTitle:"Express Your Emotions",
+  expressionQuestion:"How would you like to express your feelings?",
+  journal:"Journaling & Writing",
+  journalDesc:"Put your thoughts into words.",
+  drawing:"Drawing & Doodling",
+  drawingDesc:"Express yourself without needing words.",
+  journalTitle:"Your private journal",
+  saveEntry:"Save Entry",
+  clear:"Clear",
+  drawingTitle:"Your drawing space",
+  saveDrawing:"Save Drawing",
+  clearDrawing:"Clear Drawing",
+  kindnessTitle:"Kindness Wall",
+  kindnessSubtitle:"Choose what you need to hear today.",
+  activitiesTitle:"Calming & Interactive Activities",
+  supportTitle:"Support Resources"
+},
+
+zh:{
+  home:"首页",
+  express:"表达情绪",
+  kindness:"善意墙",
+  activities:"放松活动",
+  support:"支持资源",
+  about:"关于我们",
+  safety:"安全信息",
+  report:"举报",
+  explore:"探索",
+  heroTitle:"你的感受很重要。",
+  heroSubtitle:"一个可以表达感受、寻找平静、传递善意和寻找支持的安全空间。",
+  exploreSafe:"探索安全空间",
+  needSupport:"我需要帮助",
+  welcomeTitle:"欢迎来到希望之湾",
+  welcomeText:"无论今天过得怎么样，你都值得拥有一个可以自由表达感受、不会被评判的地方。",
+  feelingQuestion:"你今天感觉怎么样？",
+  feelingSubtitle:"没有正确或错误的答案。",
+  page2:"第2页",
+  expressTitle:"表达你的情绪",
+  expressionQuestion:"你想如何表达自己的感受？",
+  journal:"写日记",
+  journalDesc:"把你的想法写下来。",
+  drawing:"画画和涂鸦",
+  drawingDesc:"不用文字也可以表达自己。",
+  journalTitle:"你的私人日记",
+  saveEntry:"保存",
+  clear:"清除",
+  drawingTitle:"你的绘画空间",
+  saveDrawing:"保存绘画",
+  clearDrawing:"清除绘画",
+  kindnessTitle:"善意墙",
+  kindnessSubtitle:"选择今天你想听到的话。",
+  activitiesTitle:"平静与互动活动",
+  supportTitle:"支持资源"
+},
+
+ms:{
+  home:"Laman Utama",
+  express:"Luahkan Perasaan",
+  kindness:"Dinding Kebaikan",
+  activities:"Aktiviti Menenangkan",
+  support:"Sumber Sokongan",
+  about:"Tentang Kami",
+  safety:"Keselamatan",
+  report:"Lapor",
+  explore:"Terokai",
+  heroTitle:"Perasaan anda penting.",
+  heroSubtitle:"Ruang selamat untuk meluahkan perasaan, mencari ketenangan, menyebarkan kebaikan dan mendapatkan sokongan.",
+  exploreSafe:"Terokai Ruang Selamat",
+  needSupport:"Saya Perlukan Sokongan",
+  welcomeTitle:"Selamat Datang ke Cove of Hope",
+  welcomeText:"Walau apa pun keadaan hari anda, anda berhak mempunyai tempat untuk meluahkan perasaan tanpa dihakimi.",
+  feelingQuestion:"Bagaimana perasaan anda hari ini?",
+  feelingSubtitle:"Tiada jawapan yang betul atau salah.",
+  page2:"HALAMAN 2",
+  expressTitle:"Luahkan Perasaan Anda",
+  expressionQuestion:"Bagaimana anda ingin meluahkan perasaan?",
+  journal:"Menulis Jurnal",
+  journalDesc:"Tulis fikiran anda.",
+  drawing:"Melukis dan Mencoret",
+  drawingDesc:"Luahkan diri tanpa perlu menggunakan perkataan.",
+  journalTitle:"Jurnal peribadi anda",
+  saveEntry:"Simpan",
+  clear:"Padam",
+  drawingTitle:"Ruang lukisan anda",
+  saveDrawing:"Simpan Lukisan",
+  clearDrawing:"Padam Lukisan",
+  kindnessTitle:"Dinding Kebaikan",
+  kindnessSubtitle:"Pilih perkara yang anda mahu dengar hari ini.",
+  activitiesTitle:"Aktiviti Menenangkan & Interaktif",
+  supportTitle:"Sumber Sokongan"
+},
+
+ja:{
+  home:"ホーム",
+  express:"気持ちを表現",
+  kindness:"優しさの壁",
+  activities:"リラックス活動",
+  support:"サポート",
+  about:"私たちについて",
+  safety:"安全情報",
+  report:"報告",
+  explore:"探索",
+  heroTitle:"あなたの気持ちは大切です。",
+  heroSubtitle:"気持ちを表現し、落ち着き、優しさを広げ、サポートを見つけるための安全な場所です。",
+  exploreSafe:"安全な空間を見る",
+  needSupport:"サポートが必要",
+  welcomeTitle:"Cove of Hopeへようこそ",
+  welcomeText:"どんな一日でも、あなたの気持ちを否定されずに表現できる場所があっていいのです。",
+  feelingQuestion:"今日はどんな気分ですか？",
+  feelingSubtitle:"正解も不正解もありません。",
+  page2:"ページ2",
+  expressTitle:"気持ちを表現する",
+  expressionQuestion:"どのように気持ちを表現したいですか？",
+  journal:"日記を書く",
+  journalDesc:"考えていることを書いてみましょう。",
+  drawing:"絵を描く",
+  drawingDesc:"言葉を使わずに表現してみましょう。",
+  journalTitle:"あなたの日記",
+  saveEntry:"保存",
+  clear:"消去",
+  drawingTitle:"お絵描きスペース",
+  saveDrawing:"絵を保存",
+  clearDrawing:"絵を消す",
+  kindnessTitle:"優しさの壁",
+  kindnessSubtitle:"今日聞きたい言葉を選びましょう。",
+  activitiesTitle:"落ち着く・インタラクティブな活動",
+  supportTitle:"サポートリソース"
+},
+
+ko:{
+  home:"홈",
+  express:"감정 표현",
+  kindness:"친절의 벽",
+  activities:"마음 안정 활동",
+  support:"지원 자료",
+  about:"소개",
+  safety:"안전 정보",
+  report:"신고",
+  explore:"탐색",
+  heroTitle:"당신의 감정은 소중합니다.",
+  heroSubtitle:"감정을 표현하고, 마음을 진정시키고, 친절을 나누고, 도움을 찾을 수 있는 안전한 공간입니다.",
+  exploreSafe:"안전한 공간 둘러보기",
+  needSupport:"도움이 필요해요",
+  welcomeTitle:"Cove of Hope에 오신 것을 환영합니다",
+  welcomeText:"어떤 하루를 보내고 있든, 당신의 감정을 판단받지 않고 표현할 수 있는 공간이 필요합니다.",
+  feelingQuestion:"오늘 기분이 어떤가요?",
+  feelingSubtitle:"맞거나 틀린 답은 없습니다.",
+  page2:"2페이지",
+  expressTitle:"감정 표현하기",
+  expressionQuestion:"어떻게 감정을 표현하고 싶나요?",
+  journal:"일기 쓰기",
+  journalDesc:"생각을 글로 적어보세요.",
+  drawing:"그림과 낙서",
+  drawingDesc:"말 없이도 감정을 표현해보세요.",
+  journalTitle:"나만의 일기",
+  saveEntry:"저장",
+  clear:"지우기",
+  drawingTitle:"그림 공간",
+  saveDrawing:"그림 저장",
+  clearDrawing:"그림 지우기",
+  kindnessTitle:"친절의 벽",
+  kindnessSubtitle:"오늘 듣고 싶은 말을 골라보세요.",
+  activitiesTitle:"마음을 편안하게 하는 활동",
+  supportTitle:"지원 자료"
+},
+
+fr:{
+  home:"Accueil",
+  express:"Exprimer",
+  kindness:"Mur de gentillesse",
+  activities:"Activités calmantes",
+  support:"Ressources",
+  about:"À propos",
+  safety:"Sécurité",
+  report:"Signaler",
+  explore:"Explorer",
+  heroTitle:"Tes sentiments comptent.",
+  heroSubtitle:"Un espace sûr pour exprimer tes émotions, retrouver ton calme, partager de la gentillesse et trouver du soutien.",
+  exploreSafe:"Explorer l'espace sûr",
+  needSupport:"J'ai besoin d'aide",
+  welcomeTitle:"Bienvenue à Cove of Hope",
+  welcomeText:"Quelle que soit ta journée, tu mérites un endroit où tu peux exprimer tes sentiments sans être jugé.",
+  feelingQuestion:"Comment te sens-tu aujourd'hui ?",
+  feelingSubtitle:"Il n'y a pas de bonne ou de mauvaise réponse.",
+  page2:"PAGE 2",
+  expressTitle:"Exprimer tes émotions",
+  expressionQuestion:"Comment aimerais-tu exprimer tes sentiments ?",
+  journal:"Journal et écriture",
+  journalDesc:"Mets tes pensées en mots.",
+  drawing:"Dessin et gribouillage",
+  drawingDesc:"Exprime-toi sans avoir besoin de mots.",
+  journalTitle:"Ton journal privé",
+  saveEntry:"Enregistrer",
+  clear:"Effacer",
+  drawingTitle:"Ton espace de dessin",
+  saveDrawing:"Enregistrer le dessin",
+  clearDrawing:"Effacer le dessin",
+  kindnessTitle:"Mur de gentillesse",
+  kindnessSubtitle:"Choisis ce que tu as besoin d'entendre aujourd'hui.",
+  activitiesTitle:"Activités calmantes et interactives",
+  supportTitle:"Ressources de soutien"
+}
+
+};
+
+
+function chooseLanguage(lang,button){
+
+  currentLanguage=lang;
+
+  document.querySelectorAll(".setup-step:first-of-type .option-btn")
+  .forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  applyTranslations();
+
+}
+
+
+function chooseTheme(theme,button){
+
+  currentTheme=theme;
+
+  document.body.className="theme-"+theme;
+
+  document.querySelectorAll(".setup-step:nth-of-type(2) .option-btn")
+  .forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+}
+
+
+function applyTranslations(){
+
+  const t=translations[currentLanguage];
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+
+    const key=el.getAttribute("data-i18n");
+
+    if(t[key]){
+      el.textContent=t[key];
+    }
+
+  });
+
+}
+
+
+/* ---------- ENTER WEBSITE ---------- */
+
+function enterWebsite(){
+
+  if(!currentLanguage){
+    alert("Please choose a language.");
+    return;
+  }
+
+  document.documentElement.lang=currentLanguage;
+
+  document.getElementById("setupScreen").classList.add("hidden");
+  document.getElementById("website").classList.remove("hidden");
+
+  buildEmotionButtons();
+  renderKindnessWall();
+
+}
+
+
+/* ---------- PAGE NAVIGATION ---------- */
+
+function showPage(page){
+
+  document.querySelectorAll(".page")
+  .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(page).classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ---------- EMOTIONS ---------- */
+
+const emotions={
+
+happy:{
+  emoji:"😊",
+  label:"Happy",
+  positive:true,
+  quote:"Let yourself enjoy this moment. You don't have to justify feeling good.",
+  note:"A good moment doesn't need to be perfect to be worth enjoying."
+},
+
+excited:{
+  emoji:"🤩",
+  label:"Excited",
+  positive:true,
+  quote:"Your excitement is allowed to take up space!",
+  note:"Enjoy the energy and let yourself look forward to something."
+},
+
+proud:{
+  emoji:"🥹",
+  label:"Proud",
+  positive:true,
+  quote:"Hey, look at you. You made it this far.",
+  note:"Even small things can be worth being proud of."
+},
+
+peaceful:{
+  emoji:"😌",
+  label:"Peaceful",
+  positive:true,
+  quote:"You found a little pocket of calm. Stay here for a moment.",
+  note:"You don't have to rush away from peaceful moments."
+},
+
+grateful:{
+  emoji:"🥰",
+  label:"Grateful",
+  positive:true,
+  quote:"Gratitude can make an ordinary moment feel a little brighter.",
+  note:"Notice what made this moment meaningful to you."
+},
+
+silly:{
+  emoji:"😜",
+  label:"Silly",
+  positive:true,
+  quote:"Official reminder: being a little silly is completely allowed.",
+  note:"A tiny bit of nonsense can sometimes make the day better."
+},
+
+sad:{
+  emoji:"😢",
+  label:"Sad",
+  positive:false,
+  quote:"You don't have to pretend you're okay when you're not.",
+  note:"Sadness is a feeling, not a failure.",
+  suggestions:[
+    "Write down what has been bothering you.",
+    "Read a few kindness notes.",
+    "Try one slow breathing exercise.",
+    "Talk to someone you trust if you want company."
+  ]
+},
+
+lonely:{
+  emoji:"🌧️",
+  label:"Lonely",
+  positive:false,
+  quote:"Feeling lonely doesn't mean that nobody cares about you.",
+  note:"Sometimes connection takes one small step. You could message someone you trust.",
+  suggestions:[
+    "Send a simple 'hey' to someone you trust.",
+    "Visit the Kindness Wall.",
+    "Try a calming activity.",
+    "Think of one person you might like to spend time with."
+  ]
+},
+
+angry:{
+  emoji:"😠",
+  label:"Angry",
+  positive:false,
+  quote:"You are allowed to be angry. You can take time before deciding what to do next.",
+  note:"Give yourself some space to cool down before responding.",
+  suggestions:[
+    "Step away from the situation for a few minutes.",
+    "Try slow breathing.",
+    "Write what you wish you could say.",
+    "Talk to someone you trust when you're ready."
+  ]
+},
+
+worried:{
+  emoji:"😟",
+  label:"Worried",
+  positive:false,
+  quote:"You don't need to solve every problem all at once.",
+  note:"Focus on the next small thing you can control.",
+  suggestions:[
+    "Try 5-4-3-2-1 grounding.",
+    "Write down the worry and one thing you can do.",
+    "Take a short break.",
+    "Talk to someone you trust."
+  ]
+},
+
+tired:{
+  emoji:"😴",
+  label:"Tired",
+  positive:false,
+  quote:"Rest is not something you need to earn.",
+  note:"If you can, give yourself permission to slow down.",
+  suggestions:[
+    "Take a screen break.",
+    "Listen to something calming.",
+    "Try a mindful minute.",
+    "Get some water and give yourself a quiet moment."
+  ]
+},
+
+confused:{
+  emoji:"😵‍💫",
+  label:"Confused",
+  positive:false,
+  quote:"It's okay not to have everything figured out yet.",
+  note:"You can take things one small step at a time.",
+  suggestions:[
+    "Write down what you know.",
+    "Write down what you don't know.",
+    "Ask someone you trust for another perspective.",
+    "Take a short calming break."
+  ]
+},
+
+others:{
+  emoji:"💭",
+  label:"Something else",
+  positive:false,
+  quote:"Whatever you're feeling, you are allowed to acknowledge it.",
+  note:"You don't need the perfect word for your emotion.",
+  suggestions:[
+    "Write about what you're feeling.",
+    "Try a calming activity.",
+    "Draw instead of writing.",
+    "Talk to someone you trust."
+  ]
+}
+
+};
+
+
+function buildEmotionButtons(){
+
+  const grid=document.getElementById("emotionGrid");
+
+  grid.innerHTML="";
+
+  Object.entries(emotions).forEach(([key,e])=>{
+
+    const button=document.createElement("button");
+
+    button.className="emotion-btn";
+
+    button.innerHTML=
+      `<span style="font-size:28px">${e.emoji}</span><br>${e.label}`;
+
+    button.onclick=()=>selectEmotion(key);
+
+    grid.appendChild(button);
+
+  });
+
+}
+
+
+function selectEmotion(key){
+
+  selectedEmotion=key;
+
+  const e=emotions[key];
+
+  document.getElementById("chosenEmotion").textContent=
+    `${e.emoji} ${e.label}`;
+
+  document.getElementById("topEmotion").textContent=
+    `${e.emoji} ${e.label}`;
+
+  document.getElementById("emotionQuote").textContent=
+    e.quote;
+
+  document.getElementById("emotionNote").textContent=
+    e.note;
+
+  const suggestions=document.getElementById("emotionSuggestions");
+
+  suggestions.innerHTML="";
+
+  if(!e.positive){
+
+    const title=document.createElement("h3");
+
+    title.textContent="You could try:";
+
+    suggestions.appendChild(title);
+
+    e.suggestions.forEach(item=>{
+
+      const div=document.createElement("div");
+
+      div.className="suggestion";
+
+      div.textContent="🌿 "+item;
+
+      suggestions.appendChild(div);
+
+    });
+
+  }
+
+  document.getElementById("emotionResult")
+  .classList.add("show");
+
+}
+
+
+/* ---------- JOURNAL ---------- */
+
+function openJournal(){
+
+  document.getElementById("expressionChoices")
+  .classList.add("hidden");
+
+  document.getElementById("journalArea")
+  .classList.remove("hidden");
+
+  loadJournals();
+
+}
+
+
+function clearJournal(){
+
+  document.getElementById("journalText").value="";
+
+}
+
+
+function saveJournal(){
+
+  const text=document.getElementById("journalText").value.trim();
+
+  if(!text){
+    alert("Please write something first.");
+    return;
+  }
+
+  const entries=
+    JSON.parse(localStorage.getItem("coveJournals")||"[]");
+
+  entries.push({
+
+    text:text,
+
+    emotion:selectedEmotion
+      ? emotions[selectedEmotion].label
+      : "No emotion selected",
+
+    date:new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "coveJournals",
+    JSON.stringify(entries)
+  );
+
+  document.getElementById("journalText").value="";
+
+  loadJournals();
+
+}
+
+
+function loadJournals(){
+
+  const container=document.getElementById("journalEntries");
+
+  const entries=
+    JSON.parse(localStorage.getItem("coveJournals")||"[]");
+
+  container.innerHTML="";
+
+  entries.slice().reverse().forEach(entry=>{
+
+    const div=document.createElement("div");
+
+    div.className="entry";
+
+    div.innerHTML=
+      `<strong>${entry.emotion}</strong>
+       <small style="display:block;margin:8px 0;color:var(--muted)">
+       ${entry.date}</small>
+       <p>${escapeHTML(entry.text)}</p>`;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* ---------- DRAWING ---------- */
+
+const canvas=document.getElementById("drawCanvas");
+const ctx=canvas.getContext("2d");
+
+let drawing=false;
+
+function position(e){
+
+  const rect=canvas.getBoundingClientRect();
+
+  return{
+
+    x:(e.clientX-rect.left)
+      *(canvas.width/rect.width),
+
+    y:(e.clientY-rect.top)
+      *(canvas.height/rect.height)
+
+  };
+
+}
+
+
+canvas.addEventListener("pointerdown",e=>{
+
+  drawing=true;
+
+  const p=position(e);
+
+  ctx.beginPath();
+  ctx.moveTo(p.x,p.y);
+
+});
+
+
+canvas.addEventListener("pointermove",e=>{
+
+  if(!drawing)return;
+
+  const p=position(e);
+
+  ctx.lineWidth=5;
+  ctx.lineCap="round";
+  ctx.strokeStyle="#7c4d9f";
+
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
+
+});
+
+
+canvas.addEventListener("pointerup",()=>drawing=false);
+canvas.addEventListener("pointerleave",()=>drawing=false);
+
+
+function openDrawing(){
+
+  document.getElementById("expressionChoices")
+  .classList.add("hidden");
+
+  document.getElementById("drawingArea")
+  .classList.remove("hidden");
+
+  loadDrawings();
+
+}
+
+
+function backExpression(){
+
+  document.getElementById("expressionChoices")
+  .classList.remove("hidden");
+
+  document.getElementById("journalArea")
+  .classList.add("hidden");
+
+  document.getElementById("drawingArea")
+  .classList.add("hidden");
+
+}
+
+
+function clearCanvas(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+}
+
+
+function saveDrawing(){
+
+  const image=canvas.toDataURL("image/png");
+
+  const drawings=
+    JSON.parse(localStorage.getItem("coveDrawings")||"[]");
+
+  drawings.push({
+
+    image:image,
+
+    emotion:selectedEmotion
+      ? emotions[selectedEmotion].label
+      : "No emotion selected",
+
+    date:new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "coveDrawings",
+    JSON.stringify(drawings)
+  );
+
+  loadDrawings();
+
+}
+
+
+function loadDrawings(){
+
+  const container=document.getElementById("savedDrawings");
+
+  const drawings=
+    JSON.parse(localStorage.getItem("coveDrawings")||"[]");
+
+  container.innerHTML="";
+
+  drawings.slice().reverse().forEach(d=>{
+
+    const div=document.createElement("div");
+
+    div.className="entry";
+
+    div.innerHTML=
+      `<strong>${d.emotion}</strong>
+       <small style="display:block;margin:8px 0;color:var(--muted)">
+       ${d.date}</small>
+       <img src="${d.image}" style="width:100%;border-radius:10px">`;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* ---------- KINDNESS WALL ---------- */
+
+const kindnessCategories={
+
+alone:"You are not alone",
+
+can:"You can do this",
+
+important:"You are important",
+
+enough:"You are enough",
+
+proud:"You can be proud of yourself",
+
+hope:"There is still hope"
+
+};
+
+
+function selectKindness(category,button){
+
+  selectedKindness=category;
+
+  document.querySelectorAll(".category-btn")
+  .forEach(b=>b.classList.remove("active"));
+
+  button.classList.add("active");
+
+  document.getElementById("wallTitle").textContent=
+    kindnessCategories[category];
+
+  renderKindnessWall();
+
+}
+
+
+function renderKindnessWall(){
+
+  const wall=document.getElementById("kindnessWall");
+
+  if(!wall)return;
+
+  wall.innerHTML="";
+
+  const messages=
+    JSON.parse(localStorage.getItem("coveKindness")||"[]");
+
+  const filtered=
+    messages.filter(m=>m.category===selectedKindness);
+
+  if(filtered.length===0){
+
+    wall.innerHTML=`
+      <div style="grid-column:1/-1;text-align:center;padding:60px">
+        <div style="font-size:50px">🌱</div>
+        <h3>No messages here yet.</h3>
+        <p class="muted">
+          Be the first to leave a positive message.
+        </p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  filtered.forEach(message=>{
+
+    const div=document.createElement("div");
+
+    div.className="sticky";
+
+    div.textContent=message.text;
+
+    wall.appendChild(div);
+
+  });
+
+}
+
+
+function openKindnessForm(){
+
+  document.getElementById("kindnessModal")
+  .classList.add("show");
+
+}
+
+
+function saveKindness(){
+
+  const text=
+    document.getElementById("kindnessText")
+    .value.trim();
+
+  const category=
+    document.getElementById("kindnessCategory")
+    .value;
+
+  if(!text){
+    alert("Please write a message.");
+    return;
+  }
+
+  if(containsNegativeLanguage(text)){
+
+    alert(
+      "This message could not be added because it contains language that may be harmful or negative."
+    );
+
+    return;
+
+  }
+
+  const messages=
+    JSON.parse(localStorage.getItem("coveKindness")||"[]");
+
+  messages.push({
+
+    text:text,
+
+    category:category,
+
+    date:new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "coveKindness",
+    JSON.stringify(messages)
+  );
+
+  document.getElementById("kindnessText").value="";
+
+  closeModal("kindnessModal");
+
+  selectedKindness=category;
+
+  document.querySelectorAll(".category-btn")
+  .forEach(b=>{
+
+    b.classList.toggle(
+      "active",
+      b.textContent.toLowerCase()
+      .includes(kindnessCategories[category].split(" ")[1]?.toLowerCase()||"")
+    );
+
+  });
+
+  document.getElementById("wallTitle").textContent=
+    kindnessCategories[category];
+
+  renderKindnessWall();
+
+}
+
+
+function containsNegativeLanguage(text){
+
+  const badWords=[
+
+    "kill",
+    "die",
+    "hate yourself",
+    "worthless",
+    "stupid",
+    "idiot",
+    "loser",
+    "ugly",
+    "shut up",
+    "hurt yourself"
+
+  ];
+
+  const lower=text.toLowerCase();
+
+  return badWords.some(word=>lower.includes(word));
+
+}
+
+
+/* ---------- ACTIVITIES ---------- */
+
+function showActivity(type){
+
+  const box=document.getElementById("activityContent");
+
+  box.classList.remove("hidden");
+
+  if(type==="breathing"){
+
+    box.innerHTML=`
+
+      <h2>🌬️ Calming Activities & Breathing Techniques</h2>
+
+      <div class="exercise">
+
+        <h3>1. 4-7-8 Breathing</h3>
+
+        <p>
+          Breathe in gently for 4 seconds, hold for 7 seconds,
+          then breathe out slowly for 8 seconds.
+        </p>
+
+        <button class="primary-btn"
+        onclick="startBreathingTimer()">
+          Try It
+        </button>
+
+        <div id="breathingTimer" class="timer"></div>
+
+      </div>
+
+
+      <div class="exercise">
+
+        <h3>2. 5-4-3-2-1 Grounding</h3>
+
+        <p>
+          Notice 5 things you can see, 4 things you can touch,
+          3 things you can hear, 2 things you can smell,
+          and 1 thing you can taste or imagine tasting.
+        </p>
+
+        <p>
+          This activity can help bring your attention back to
+          the present moment.
+        </p>
+
+      </div>
+
+
+      <div class="exercise">
+
+        <h3>3. Take a Mindful Minute</h3>
+
+        <p>
+          Pause for one minute. Notice your breathing, the
+          feeling of your feet or body, and the sounds around you.
+        </p>
+
+        <button class="primary-btn"
+        onclick="startMindfulMinute()">
+          Start One Minute
+        </button>
+
+        <div id="mindfulTimer" class="timer"></div>
+
+      </div>
+
+
+      <a class="link-card"
+      href="https://www.youtube.com/results?search_query=guided+breathing+exercises+for+teens"
+      target="_blank">
+        🌿 Explore more breathing exercises
+      </a>
+
+    `;
+
+  }
+
+
+  if(type==="look"){
+
+    box.innerHTML=`
+
+      <h2>👀 Look Around Me</h2>
+
+      <div class="exercise">
+
+        <h3>Find 5 Things That Make You Happy</h3>
+
+        <p>
+          Look around your environment and find five small things
+          that make you smile, feel comfortable, or remind you
+          of something positive.
+        </p>
+
+      </div>
+
+
+      <div class="exercise">
+
+        <h3>Think of 1 Nice Thing That Happened Recently</h3>
+
+        <p>
+          It can be something tiny — a funny moment, a nice
+          message, good food, a pleasant sound or anything else.
+        </p>
+
+      </div>
+
+
+      <div class="exercise">
+
+        <h3>Think of 3 Things You're Grateful For</h3>
+
+        <p>
+          They don't need to be huge. Small things count.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Why can this help?</h3>
+
+        <p>
+          These activities gently shift your attention toward
+          things happening around you instead of staying completely
+          focused on stressful thoughts.
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(type==="games"){
+
+    box.innerHTML=`
+
+      <h2>🎮 Interactive Game Apps</h2>
+
+      <p>
+        Short, simple interactive activities can be a fun way
+        to give your attention something different to focus on.
+      </p>
+
+      <a class="link-card"
+      href="https://play.google.com/store/apps/details?id=com.dramaton.slime&hl=en-US"
+      target="_blank">
+        🟢 Virtual Slime App
+      </a>
+
+      <a class="link-card"
+      href="https://www.unwindkit.com/fidget"
+      target="_blank">
+        🟣 Online Fidget Pad — Interactive Fidget Pad
+      </a>
+
+    `;
+
+  }
+
+
+  if(type==="break"){
+
+    box.innerHTML=`
+
+      <h2>☕ Take a Break</h2>
+
+      <div class="exercise">
+
+        <h3>🎵 Listen to Calming Music</h3>
+
+        <p>
+          Put on some calming music and give yourself a few
+          minutes away from whatever has been stressing you.
+        </p>
+
+        <a class="primary-btn"
+        href="https://www.youtube.com/watch?v=I3OJUwILelU&list=RDI3OJUwILelU"
+        target="_blank">
+          Listen
+        </a>
+
+      </div>
+
+
+      <div class="exercise">
+
+        <h3>📺 Watch a Video on Why We Should Relax</h3>
+
+        <a class="primary-btn"
+        href="https://www.youtube.com/watch?v=vD0w_gOEbUI"
+        target="_blank">
+          Watch Video
+        </a>
+
+      </div>
+
+
+      <div class="exercise">
+
+        <h3>📵 Take a 1-Minute Screen Time Break</h3>
+
+        <p>
+          Put your device down for one minute. Look around,
+          stretch gently, breathe, or simply sit quietly.
+        </p>
+
+        <button class="primary-btn"
+        onclick="startScreenBreak()">
+          Start 1 Minute
+        </button>
+
+        <div id="screenTimer" class="timer"></div>
+
+      </div>
+
+
+      <p>
+        Short breaks can give your attention a chance to reset
+        and can help you step away from stressful thoughts.
+      </p>
+
+    `;
+
+  }
+
+
+  if(type==="create"){
+
+    box.innerHTML=`
+
+      <h2>🧩 Create an Interactive Mini Game</h2>
+
+      <p>
+        Think of a game idea you would like to create.
+      </p>
+
+      <p>
+        Describe your idea to an AI tool and ask it to create
+        a HTML for your game.
+      </p>
+
+      <p>
+        You can then click
+        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default_default"
+        target="_blank">
+        this website
+        </a>,
+        and go to this site, which will help you create the game.
+      </p>
+
+      <p>
+        Clear the template HTML in the site and copy the one AI
+        created for your game. And click <strong>Run</strong>.
+      </p>
+
+      <p>
+        Test your game, and if you want to change it, go back to
+        the AI tool and tell it your changes. Then, ask it to
+        recreate the HTML code, and recopy it until you like your game.
+      </p>
+
+      <p>
+        Creating something yourself can also be a fun way to focus
+        your attention and explore your creativity.
+      </p>
+
+    `;
+
+  }
+
+  box.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+
+/* ---------- TIMERS ---------- */
+
+function countdown(elementId,seconds){
+
+  const el=document.getElementById(elementId);
+
+  if(!el)return;
+
+  let remaining=seconds;
+
+  el.textContent=remaining;
+
+  const interval=setInterval(()=>{
+
+    remaining--;
+
+    el.textContent=
+      remaining>0
+      ? remaining
+      : "Done!";
+
+    if(remaining<=0){
+      clearInterval(interval);
+    }
+
+  },1000);
+
+}
+
+
+function startBreathingTimer(){
+
+  const el=document.getElementById("breathingTimer");
+
+  el.textContent="Breathe in...";
+
+  setTimeout(()=>{
+    el.textContent="Hold...";
+  },4000);
+
+  setTimeout(()=>{
+    el.textContent="Breathe out slowly...";
+  },11000);
+
+  setTimeout(()=>{
+    el.textContent="Finished 🌿";
+  },19000);
+
+}
+
+
+function startMindfulMinute(){
+
+  countdown("mindfulTimer",60);
+
+}
+
+
+function startScreenBreak(){
+
+  countdown("screenTimer",60);
+
+}
+
+
+/* ---------- SUPPORT ---------- */
+
+function showSupport(type){
+
+  const box=document.getElementById("supportContent");
+
+  box.classList.remove("hidden");
+
+  if(type==="helpline"){
+
+    box.innerHTML=`
+
+      <h2>📞 Helpline & Support Services</h2>
+
+      <div class="support-card">
+
+        <h3>TOUCHline — Singapore</h3>
+
+        <p>
+          TOUCH Community Services provides support services.
+        </p>
+
+        <a class="primary-btn"
+        href="https://www.touch.org.sg/"
+        target="_blank">
+          Visit TOUCH
+        </a>
+
+      </div>
+
+
+      <div class="support-card">
+
+        <h3>Befrienders — Johor Bahru</h3>
+
+        <p>
+          Befrienders provides emotional support services.
+        </p>
+
+        <a class="primary-btn"
+        href="https://befrienders.org/find-support-now/the-befrienders-society-johor-bahru/"
+        target="_blank">
+          Visit Befrienders
+        </a>
+
+      </div>
+
+
+      <div class="support-card">
+
+        <h3>Find a Helpline in Your Area</h3>
+
+        <p>
+          Find support services available in your location.
+        </p>
+
+        <a class="primary-btn"
+        href="https://findahelpline.com/"
+        target="_blank">
+          Find a Helpline
+        </a>
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(type==="talk"||type==="school"||type==="adult"){
+
+    box.innerHTML=`
+
+      <h2>💬 Asking Someone for Help</h2>
+
+      <p>
+        Asking for support can feel difficult, especially if you're
+        worried about how someone will respond.
+      </p>
+
+      <h3>Friends</h3>
+
+      <p>
+        You could start with something simple like:
+        "Hey, I've been having a difficult time lately.
+        Can I talk to you?"
+      </p>
+
+      <h3>Teachers or school counsellors</h3>
+
+      <p>
+        You can ask to speak privately and explain that something
+        has been bothering you.
+      </p>
+
+      <h3>Parents or trusted adults</h3>
+
+      <p>
+        You don't need to explain everything perfectly.
+        You can begin by saying that you need someone to listen.
+      </p>
+
+      <h3>Online communities</h3>
+
+      <p>
+        Be careful about sharing personal information online.
+        Look for moderated, trustworthy communities and avoid
+        sharing private details such as your address, passwords
+        or school location.
+      </p>
+
+      <div style="text-align:center;font-size:70px;margin-top:20px">
+        📣
+      </div>
+
+      <h2 style="text-align:center">
+        ASK FOR HELP
+      </h2>
+
+    `;
+
+  }
+
+  box.scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ---------- MODALS ---------- */
+
+function openSafety(){
+
+  document.getElementById("safetyModal")
+  .classList.add("show");
+
+}
+
+
+function openReport(){
+
+  document.getElementById("reportModal")
+  .classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+  document.getElementById(id)
+  .classList.remove("show");
+
+}
+
+
+function submitReport(){
+
+  const text=
+    document.getElementById("reportText").value.trim();
+
+  if(!text){
+
+    document.getElementById("reportStatus")
+    .textContent="Please describe what you would like to report.";
+
+    return;
+
+  }
+
+  /*
+    IMPORTANT:
+    This version does not send the report to you.
+    It stores it only in this browser.
+    A real report system requires a backend/database.
+  */
+
+  const reports=
+    JSON.parse(localStorage.getItem("coveReports")||"[]");
+
+  reports.push({
+
+    type:document.getElementById("reportType").value,
+
+    text:text,
+
+    date:new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "coveReports",
+    JSON.stringify(reports)
+  );
+
+  document.getElementById("reportText").value="";
+
+  document.getElementById("reportStatus")
+  .textContent=
+    "Thank you. This report has been saved on this device.";
+
+}
+
+
+/* ---------- SECURITY HELPER ---------- */
+
+function escapeHTML(text){
+
+  const div=document.createElement("div");
+
+  div.textContent=text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ---------- INITIALISE ---------- */
+
+applyTranslations();
+
+</script>
+
+</body>
+</html>
