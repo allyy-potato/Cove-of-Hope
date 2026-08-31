@@ -2606,7 +2606,9 @@ hope:"There is still hope"
 
 };
 
-
+const SUPA_URL = "https://oemuapedvvcfkpkayztm.supabase.co";
+const SUPA_KEY = "sb_publishable_FFscRbNQ8w13dUg2vKgRlA_DygC9GG5";
+   
 function selectKindness(category,button){
 
   selectedKindness=category;
@@ -2624,47 +2626,88 @@ function selectKindness(category,button){
 }
 
 
-function renderKindnessWall(){
+async function renderKindnessWall(){
 
   const wall=document.getElementById("kindnessWall");
 
   if(!wall)return;
 
-  wall.innerHTML="";
+  wall.innerHTML=`
+    <div style="grid-column:1/-1;text-align:center;padding:60px">
+      <div style="font-size:40px">⏳</div>
+      <p class="muted">Loading kindness messages...</p>
+    </div>
+  `;
 
-  const messages=
-    JSON.parse(localStorage.getItem("coveKindness")||"[]");
+  try{
 
-  const filtered=
-    messages.filter(m=>m.category===selectedKindness);
+    const response=await fetch(
+      `${SUPA_URL}/rest/v1/kindness_posts?select=id,message,category,created_at&category=eq.${encodeURIComponent(selectedKindness)}&approved=eq.true&order=created_at.desc`,
+      {
+        method:"GET",
+        headers:{
+          "apikey":SUPA_KEY,
+          "Authorization":`Bearer ${SUPA_KEY}`,
+          "Content-Type":"application/json"
+        }
+      }
+    );
 
-  if(filtered.length===0){
+    if(!response.ok){
+      const error=await response.text();
+      console.error("Supabase Kindness Wall error:",error);
+      throw new Error("Could not load kindness posts.");
+    }
+
+    const messages=await response.json();
+
+    const safeMessages=messages.filter(
+      message=>!containsNegativeLanguage(message.message)
+    );
+
+    if(safeMessages.length===0){
+
+      wall.innerHTML=`
+        <div style="grid-column:1/-1;text-align:center;padding:60px">
+          <div style="font-size:50px">🌱</div>
+          <h3>No messages here yet.</h3>
+          <p class="muted">
+            Be the first to leave a positive message.
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+    safeMessages.forEach(message=>{
+
+      const div=document.createElement("div");
+
+      div.className="sticky";
+
+      div.textContent=message.message;
+
+      wall.appendChild(div);
+
+    });
+
+  }catch(error){
+
+    console.error("Kindness Wall error:",error);
 
     wall.innerHTML=`
       <div style="grid-column:1/-1;text-align:center;padding:60px">
-        <div style="font-size:50px">🌱</div>
-        <h3>No messages here yet.</h3>
+        <div style="font-size:40px">💜</div>
+        <h3>We couldn't load the Kindness Wall right now.</h3>
         <p class="muted">
-          Be the first to leave a positive message.
+          Please try refreshing the page.
         </p>
       </div>
     `;
 
-    return;
-
   }
-
-  filtered.forEach(message=>{
-
-    const div=document.createElement("div");
-
-    div.className="sticky";
-
-    div.textContent=message.text;
-
-    wall.appendChild(div);
-
-  });
 
 }
 
@@ -2677,7 +2720,7 @@ function openKindnessForm(){
 }
 
 
-function saveKindness(){
+async function saveKindness(){
 
   const text=
     document.getElementById("kindnessText")
@@ -2702,45 +2745,97 @@ function saveKindness(){
 
   }
 
-  const messages=
-    JSON.parse(localStorage.getItem("coveKindness")||"[]");
+  try{
 
-  messages.push({
+    const ownerToken=
+      localStorage.getItem("coveOwnerToken") ||
+      crypto.randomUUID();
 
-    text:text,
-
-    category:category,
-
-    date:new Date().toLocaleString()
-
-  });
-
-  localStorage.setItem(
-    "coveKindness",
-    JSON.stringify(messages)
-  );
-
-  document.getElementById("kindnessText").value="";
-
-  closeModal("kindnessModal");
-
-  selectedKindness=category;
-
-  document.querySelectorAll(".category-btn")
-  .forEach(b=>{
-
-    b.classList.toggle(
-      "active",
-      b.textContent.toLowerCase()
-      .includes(kindnessCategories[category].split(" ")[1]?.toLowerCase()||"")
+    localStorage.setItem(
+      "coveOwnerToken",
+      ownerToken
     );
 
-  });
+    const response=await fetch(
+      `${SUPA_URL}/rest/v1/kindness_posts`,
+      {
+        method:"POST",
 
-  document.getElementById("wallTitle").textContent=
-    kindnessCategories[category];
+        headers:{
+          "apikey":SUPA_KEY,
+          "Authorization":`Bearer ${SUPA_KEY}`,
+          "Content-Type":"application/json",
+          "Prefer":"return=minimal"
+        },
 
-  renderKindnessWall();
+        body:JSON.stringify({
+
+          message:text,
+
+          category:category,
+
+          owner_token:ownerToken,
+
+          approved:true
+
+        })
+
+      }
+    );
+
+    if(!response.ok){
+
+      const error=await response.text();
+
+      console.error(
+        "Supabase Kindness Wall error:",
+        error
+      );
+
+      throw new Error(
+        "Could not save kindness message."
+      );
+
+    }
+
+    document.getElementById("kindnessText").value="";
+
+    closeModal("kindnessModal");
+
+    selectedKindness=category;
+
+    document.querySelectorAll(".category-btn")
+    .forEach(b=>{
+
+      b.classList.toggle(
+        "active",
+        b.textContent.toLowerCase()
+        .includes(
+          kindnessCategories[category]
+          .split(" ")[1]
+          ?.toLowerCase() || ""
+        )
+      );
+
+    });
+
+    document.getElementById("wallTitle").textContent=
+      kindnessCategories[category];
+
+    await renderKindnessWall();
+
+  }catch(error){
+
+    console.error(
+      "Kindness Wall save error:",
+      error
+    );
+
+    alert(
+      "We couldn't save your kindness message right now. Please try again."
+    );
+
+  }
 
 }
 
@@ -2764,11 +2859,11 @@ function containsNegativeLanguage(text){
 
   const lower=text.toLowerCase();
 
-  return badWords.some(word=>lower.includes(word));
+  return badWords.some(
+    word=>lower.includes(word)
+  );
 
 }
-
-
 /* ---------- ACTIVITIES ---------- */
 
 function showActivity(type){
