@@ -3461,59 +3461,53 @@ function showSupport(type){
   }
 
 
-  if(type==="talk"||type==="school"||type==="adult"){
+  if(type==="talk"){
 
-    box.innerHTML=`
+  box.innerHTML=`
 
-      <h2>💬 Asking Someone for Help</h2>
+    <h2>💬 Someone to Talk To</h2>
 
-      <p>
-        Asking for support can feel difficult, especially if you're
-        worried about how someone will respond.
-      </p>
+    <p>
+      You don't have to deal with everything by yourself.
+      Talking to someone you trust can be a good first step.
+    </p>
 
-      <h3>Friends</h3>
+    <h3>👥 Friends or someone you trust</h3>
 
-      <p>
-        You could start with something simple like:
-        "Hey, I've been having a difficult time lately.
-        Can I talk to you?"
-      </p>
+    <p>
+      You can start with something simple, such as:
+      "I've been having a difficult time. Can I talk to you?"
+    </p>
 
-      <h3>Teachers or school counsellors</h3>
+    <h3>🕊️ Anonymous online support</h3>
 
-      <p>
-        You can ask to speak privately and explain that something
-        has been bothering you.
-      </p>
+    <p>
+      If you don't feel ready to talk to someone you know,
+      you can explore anonymous online support resources.
+    </p>
 
-      <h3>Parents or trusted adults</h3>
+    <a class="link-card"
+    href="https://www.supportiv.com/tools/online-chat-room-get-anonymous-answers"
+    target="_blank">
+      💬 Supportiv — Anonymous Online Chat
+    </a>
 
-      <p>
-        You don't need to explain everything perfectly.
-        You can begin by saying that you need someone to listen.
-      </p>
+    <a class="link-card"
+    href="https://weebe.org/articles/where-can-i-talk-to-someone-anonymously-about-my-problems/"
+    target="_blank">
+      🌱 WeeBE — Where Can I Talk to Someone Anonymously?
+    </a>
 
-      <h3>Online communities</h3>
+    <h3>🔒 Stay safe online</h3>
 
-      <p>
-        Be careful about sharing personal information online.
-        Look for moderated, trustworthy communities and avoid
-        sharing private details such as your address, passwords
-        or school location.
-      </p>
+    <p>
+      Avoid sharing private information such as your full name,
+      address, passwords or school location.
+    </p>
 
-      <div style="text-align:center;font-size:70px;margin-top:20px">
-        📣
-      </div>
+  `;
 
-      <h2 style="text-align:center">
-        ASK FOR HELP
-      </h2>
-
-    `;
-
-  }
+}
 
   box.scrollIntoView({
     behavior:"smooth"
