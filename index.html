@@ -2648,7 +2648,7 @@ function loadDrawings(){
 
   container.innerHTML="";
 
-  drawings.slice().reverse().forEach(d=>{
+  drawings.slice().reverse().forEach((d,index)=>{
 
     const div=document.createElement("div");
 
@@ -2658,11 +2658,35 @@ function loadDrawings(){
       `<strong>${d.emotion}</strong>
        <small style="display:block;margin:8px 0;color:var(--muted)">
        ${d.date}</small>
-       <img src="${d.image}" style="width:100%;border-radius:10px">`;
+       <img src="${d.image}" style="width:100%;border-radius:10px">
+       <button
+         type="button"
+         onclick="deleteDrawing(${drawings.length - 1 - index})"
+         style="margin-top:10px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;"
+       >
+         🗑️ Delete
+       </button>`;
 
     container.appendChild(div);
 
   });
+
+}
+
+
+function deleteDrawing(index){
+
+  const drawings=
+    JSON.parse(localStorage.getItem("coveDrawings")||"[]");
+
+  drawings.splice(index,1);
+
+  localStorage.setItem(
+    "coveDrawings",
+    JSON.stringify(drawings)
+  );
+
+  loadDrawings();
 
 }
 
