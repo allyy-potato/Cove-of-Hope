@@ -2474,7 +2474,7 @@ function loadJournals(){
 
   container.innerHTML="";
 
-  entries.slice().reverse().forEach(entry=>{
+  entries.slice().reverse().forEach((entry,index)=>{
 
     const div=document.createElement("div");
 
@@ -2484,7 +2484,14 @@ function loadJournals(){
       `<strong>${entry.emotion}</strong>
        <small style="display:block;margin:8px 0;color:var(--muted)">
        ${entry.date}</small>
-       <p>${escapeHTML(entry.text)}</p>`;
+       <p>${escapeHTML(entry.text)}</p>
+       <button
+         type="button"
+         onclick="deleteJournal(${entries.length - 1 - index})"
+         style="margin-top:10px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;"
+       >
+         🗑️ Delete
+       </button>`;
 
     container.appendChild(div);
 
@@ -2492,6 +2499,21 @@ function loadJournals(){
 
 }
 
+   function deleteJournal(index){
+
+  const entries =
+    JSON.parse(localStorage.getItem("coveJournals") || "[]");
+
+  entries.splice(index,1);
+
+  localStorage.setItem(
+    "coveJournals",
+    JSON.stringify(entries)
+  );
+
+  loadJournals();
+
+}
 
 /* ---------- DRAWING ---------- */
 
