@@ -1617,7 +1617,17 @@ footer button{
 
 <!-- CREATOR LOGIN -->
 
-<section id="creatorLoginSection" style="display:block;padding:30px;text-align:center">
+<div style="text-align:center;padding:15px;">
+  <button
+    type="button"
+    onclick="toggleCreatorLogin()"
+    style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;"
+  >
+    🔒 Creator
+  </button>
+</div>
+
+<section id="creatorLoginSection" style="display:none;padding:30px;text-align:center">
 
   <div class="card" style="max-width:500px;margin:auto">
 
@@ -1650,7 +1660,6 @@ footer button{
   </div>
 
 </section>
-
    
 <!-- =========================================================
      FOOTER
@@ -3699,6 +3708,18 @@ function escapeHTML(text){
 /* ---------- INITIALISE ---------- */
 
 applyTranslations();
+
+function toggleCreatorLogin(){
+
+  const section=document.getElementById("creatorLoginSection");
+
+  if(section.style.display==="none"){
+    section.style.display="block";
+  }else{
+    section.style.display="none";
+  }
+
+}
 
 async function creatorLogin(){
 
