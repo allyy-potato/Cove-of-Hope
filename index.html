@@ -3760,6 +3760,63 @@ console.log("Report response:", response.status, await response.text());
 
 }
 
+   async function loadReports(){
+
+  const list=document.getElementById("reportsList");
+
+  list.innerHTML="Loading reports...";
+
+  const token=localStorage.getItem("coveCreatorAccessToken");
+
+  if(!token){
+    list.innerHTML="Please log in as creator first.";
+    return;
+  }
+
+  const response=await fetch(
+    `${SUPA_URL}/rest/v1/reports?select=*&order=created_at.desc`,
+    {
+      headers:{
+        "apikey":SUPA_KEY,
+        "Authorization":`Bearer ${token}`
+      }
+    }
+  );
+
+  if(!response.ok){
+    list.innerHTML="Could not load reports.";
+    return;
+  }
+
+  const reports=await response.json();
+
+  if(reports.length===0){
+    list.innerHTML="No reports yet.";
+    return;
+  }
+
+  list.innerHTML="";
+
+  reports.forEach(report=>{
+
+    const div=document.createElement("div");
+
+    div.className="entry";
+
+    div.innerHTML=`
+      <strong>${escapeHTML(report.report_type)}</strong>
+      <small style="display:block;margin:8px 0;color:var(--muted)">
+        ${escapeHTML(report.created_at)}
+      </small>
+      <p>${escapeHTML(report.description)}</p>
+    `;
+
+    list.appendChild(div);
+
+  });
+
+}
+
 /* ---------- SECURITY HELPER ---------- */
 
 function escapeHTML(text){
