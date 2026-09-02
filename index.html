@@ -3785,11 +3785,17 @@ console.log("Creator token exists:", !!token);
     }
   );
 
-  if(!response.ok){
-    list.innerHTML="Could not load reports.";
-    return;
-  }
+if(!response.ok){
 
+  const errorText = await response.text();
+
+  console.error("Reports error:", response.status, errorText);
+
+  list.innerHTML="Could not load reports.";
+
+  return;
+
+}
   const reports=await response.json();
 
   if(reports.length===0){
