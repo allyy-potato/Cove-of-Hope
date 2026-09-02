@@ -1660,6 +1660,27 @@ footer button{
   </div>
 
 </section>
+
+   <!-- CREATOR REPORTS -->
+
+<section id="creatorReports" style="display:none;padding:30px;">
+
+  <div class="card">
+
+    <h2>📋 Reports</h2>
+
+    <button
+      class="primary-btn"
+      onclick="loadReports()"
+    >
+      View Reports
+    </button>
+
+    <div id="reportsList" style="margin-top:20px;"></div>
+
+  </div>
+
+</section>
    
 <!-- =========================================================
      FOOTER
@@ -3836,6 +3857,8 @@ async function creatorLogin(){
     status.textContent=
       "Creator login successful! 👑";
 
+document.getElementById("creatorReports").style.display="block";
+     
   }catch(error){
 
     console.error(error);
