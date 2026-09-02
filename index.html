@@ -261,49 +261,39 @@ a{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
   text-align:center;
-  text-decoration:none;
   margin-bottom:25px;
 }
 
 .cove-logo-mark{
-  width:min(210px,70vw);
-  margin-bottom:14px;
+  width:180px;
+  height:180px;
+  margin-bottom:25px;
 }
 
 .cove-logo-mark svg{
-  display:block;
   width:100%;
-  height:auto;
+  height:100%;
 }
 
 .logo-name{
-  font-family:
-    "Arial Rounded MT Bold",
-    "Trebuchet MS",
-    Arial,
-    sans-serif;
-
-  font-size:clamp(1.35rem,4vw,2rem);
-  font-weight:900;
+  font-family:"Orbitron","Arial",sans-serif;
+  font-size:2.2rem;
+  font-weight:700;
+  color:white;
   letter-spacing:4px;
-  color:#ffffff;
-  line-height:1;
-  text-align:center;
+  margin:0 0 8px 0;
+  text-transform:uppercase;
 }
 
 .logo-tag{
-  margin-top:9px;
-  font-family:
-    "Trebuchet MS",
-    Arial,
-    sans-serif;
-  font-size:clamp(.65rem,2vw,.82rem);
-  font-weight:700;
-  letter-spacing:2.5px;
-  color:#d98c9c;
-  text-align:center;
+  font-family:"Montserrat","Arial",sans-serif;
+  font-size:.95rem;
+  font-weight:400;
+  color:#df8b99;
+  letter-spacing:7px;
+  margin:0;
+  text-transform:uppercase;
 }
    
 /* ---------- HEADER ---------- */
@@ -926,89 +916,66 @@ footer button{
 
     <div class="logo">
 
-  <div class="cove-logo-mark">
+ <div class="cove-logo-mark">
 
-    <svg viewBox="0 0 180 150" xmlns="http://www.w3.org/2000/svg" aria-label="Cove of Hope logo">
+  <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
 
-      <defs>
-        <linearGradient id="covePinkPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#ff5fc7"/>
-          <stop offset="50%" stop-color="#d83fca"/>
-          <stop offset="100%" stop-color="#8e55df"/>
-        </linearGradient>
+    <defs>
 
-        <filter id="coveGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
+      <linearGradient id="coveGradient"
+        x1="0%" y1="0%"
+        x2="100%" y2="100%">
 
-        <pattern id="coveGrid" width="12" height="12" patternUnits="userSpaceOnUse">
-          <path d="M 12 0 L 0 0 0 12" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
-        </pattern>
+        <stop offset="0%" stop-color="#ff4fc3"/>
+        <stop offset="50%" stop-color="#d936c8"/>
+        <stop offset="100%" stop-color="#8655e5"/>
 
-        <mask id="coveAcut">
-          <rect width="180" height="150" fill="white"/>
+      </linearGradient>
 
-          <!-- A-shaped negative space -->
-          <path
-            d="M90 29 L62 94 L75 94 L82 76 L98 76 L105 94 L118 94 Z
-               M86 65 L90 52 L94 65 Z"
-            fill="black"
-          />
-        </mask>
-      </defs>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
 
-      <!-- Local dark indigo grid background -->
-      <rect
-        x="5"
-        y="5"
-        width="170"
-        height="140"
-        rx="24"
-        fill="#21152f"
-      />
+    </defs>
 
-      <rect
-        x="5"
-        y="5"
-        width="170"
-        height="140"
-        rx="24"
-        fill="url(#coveGrid)"
-      />
+    <g
+      fill="none"
+      stroke="url(#coveGradient)"
+      stroke-width="7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      filter="url(#glow)"
+    >
 
-      <!-- Main stacked horizontal star bars -->
-      <g
-        fill="url(#covePinkPurple)"
-        filter="url(#coveGlow)"
-        mask="url(#coveAcut)"
-      >
+      <path d="M90 18 L48 90 L90 162"/>
 
-        <rect x="67" y="25" width="46" height="7" rx="3.5"/>
-        <rect x="61" y="36" width="58" height="7" rx="3.5"/>
-        <rect x="55" y="47" width="70" height="7" rx="3.5"/>
-        <rect x="49" y="58" width="82" height="7" rx="3.5"/>
-        <rect x="43" y="69" width="94" height="7" rx="3.5"/>
-        <rect x="37" y="80" width="106" height="7" rx="3.5"/>
-        <rect x="31" y="91" width="118" height="7" rx="3.5"/>
+      <path d="M90 18 L132 90 L90 162"/>
 
-      </g>
+      <path d="M67 103 L90 58 L113 103"/>
 
-      <!-- Wider reflection bars -->
-      <g fill="url(#covePinkPurple)" opacity=".28">
+      <path d="M77 88 L103 88"/>
 
-        <rect x="25" y="106" width="130" height="5" rx="2.5"/>
-        <rect x="19" y="116" width="142" height="4" rx="2"/>
-        <rect x="29" y="126" width="122" height="3" rx="1.5"/>
+    </g>
 
-      </g>
+    <g
+      stroke="url(#coveGradient)"
+      stroke-linecap="round"
+      opacity=".35"
+    >
 
-    </svg>
+      <line x1="30" y1="145" x2="150" y2="145" stroke-width="4"/>
+      <line x1="42" y1="154" x2="138" y2="154" stroke-width="3"/>
+      <line x1="58" y1="162" x2="122" y2="162" stroke-width="2"/>
 
-  </div>
+    </g>
+
+  </svg>
+
+</div>
 
   <div class="logo-name">COVE OF HOPE</div>
 
