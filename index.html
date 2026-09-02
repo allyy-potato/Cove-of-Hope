@@ -2121,10 +2121,24 @@ fr:{
 
 function chooseLanguage(lang,button){
 
-  currentLanguage=lang;
+  const languageButtons =
+    document.querySelectorAll(".setup-step:first-of-type .option-btn");
 
-  document.querySelectorAll(".setup-step:first-of-type .option-btn")
-  .forEach(b=>b.classList.remove("selected"));
+  if(currentLanguage === lang){
+
+    currentLanguage = null;
+
+    button.classList.remove("selected");
+
+    return;
+
+  }
+
+  currentLanguage = lang;
+
+  languageButtons.forEach(b=>{
+    b.classList.remove("selected");
+  });
 
   button.classList.add("selected");
 
@@ -2135,17 +2149,42 @@ function chooseLanguage(lang,button){
 
 function chooseTheme(theme,button){
 
-  currentTheme=theme;
+  const themeButtons =
+    document.querySelectorAll(".setup-step:nth-of-type(2) .option-btn");
 
-  document.body.className="theme-"+theme;
+  if(currentTheme === theme){
 
-  document.querySelectorAll(".setup-step:nth-of-type(2) .option-btn")
-  .forEach(b=>b.classList.remove("selected"));
+    currentTheme = null;
+
+    button.classList.remove("selected");
+
+    document.body.classList.remove("theme-"+theme);
+
+    return;
+
+  }
+
+  currentTheme = theme;
+
+  themeButtons.forEach(b=>{
+    b.classList.remove("selected");
+  });
 
   button.classList.add("selected");
 
-}
+  document.body.classList.forEach(className=>{
 
+    if(className.startsWith("theme-")){
+
+      document.body.classList.remove(className);
+
+    }
+
+  });
+
+  document.body.classList.add("theme-"+theme);
+
+}
 
 function applyTranslations(){
 
