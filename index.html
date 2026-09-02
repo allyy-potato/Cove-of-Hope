@@ -3722,6 +3722,8 @@ async function submitReport(){
     }
   );
 
+console.log("Report response:", response.status, await response.text());
+   
   if(response.ok){
 
     document.getElementById("reportText").value = "";
