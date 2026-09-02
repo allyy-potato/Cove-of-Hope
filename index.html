@@ -3690,53 +3690,53 @@ function closeModal(id){
 }
 
 
-function submitReport(){
+async function submitReport(){
 
-  const text=
-    document.getElementById("reportText").value.trim();
+  const text = document.getElementById("reportText").value.trim();
+  const type = document.getElementById("reportType").value;
 
   if(!text){
 
-    document.getElementById("reportStatus")
-    .textContent="Please describe what you would like to report.";
+    document.getElementById("reportStatus").textContent =
+      "Please describe what you would like to report.";
 
     return;
 
   }
 
-  /*
-    IMPORTANT:
-    This version does not send the report to you.
-    It stores it only in this browser.
-    A real report system requires a backend/database.
-  */
+  const response = await fetch(
+    `${SUPA_URL}/rest/v1/reports`,
+    {
+      method: "POST",
 
-  const reports=
-    JSON.parse(localStorage.getItem("coveReports")||"[]");
+      headers: {
+        "apikey": SUPA_KEY,
+        "Authorization": `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json"
+      },
 
-  reports.push({
-
-    type:document.getElementById("reportType").value,
-
-    text:text,
-
-    date:new Date().toLocaleString()
-
-  });
-
-  localStorage.setItem(
-    "coveReports",
-    JSON.stringify(reports)
+      body: JSON.stringify({
+        report_type: type,
+        description: text
+      })
+    }
   );
 
-  document.getElementById("reportText").value="";
+  if(response.ok){
 
-  document.getElementById("reportStatus")
-  .textContent=
-    "Thank you. This report has been saved on this device.";
+    document.getElementById("reportText").value = "";
+
+    document.getElementById("reportStatus").textContent =
+      "Thank you. Your report has been sent.";
+
+  }else{
+
+    document.getElementById("reportStatus").textContent =
+      "Sorry, your report could not be sent.";
+
+  }
 
 }
-
 
 /* ---------- SECURITY HELPER ---------- */
 
