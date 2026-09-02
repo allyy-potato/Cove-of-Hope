@@ -957,7 +957,7 @@ footer button{
     <div class="setup-step">
       <h2 id="languageQuestion">Choose your language</h2>
 
-      <div class="option-grid">
+    <div class="option-grid" id="languageOptions">
         <button class="option-btn" onclick="chooseLanguage('en',this)">English</button>
         <button class="option-btn" onclick="chooseLanguage('zh',this)">中文</button>
         <button class="option-btn" onclick="chooseLanguage('ms',this)">Bahasa Melayu</button>
@@ -970,7 +970,7 @@ footer button{
     <div class="setup-step">
       <h2 id="themeQuestion">Choose your colour theme</h2>
 
-      <div class="option-grid">
+    <div class="option-grid" id="themeOptions">
         <button class="option-btn" onclick="chooseTheme('pastel',this)">Soft Pastel Colours</button>
         <button class="option-btn" onclick="chooseTheme('neutral',this)">Neutral Colours</button>
         <button class="option-btn" onclick="chooseTheme('beach',this)">Minimal Soft Beach</button>
@@ -2121,8 +2121,8 @@ fr:{
 
 function chooseLanguage(lang,button){
 
-  const languageButtons =
-    document.querySelectorAll(".setup-step:first-of-type .option-btn");
+  const buttons =
+    document.querySelectorAll("#languageOptions .option-btn");
 
   if(currentLanguage === lang){
 
@@ -2134,11 +2134,11 @@ function chooseLanguage(lang,button){
 
   }
 
-  currentLanguage = lang;
-
-  languageButtons.forEach(b=>{
+  buttons.forEach(b=>{
     b.classList.remove("selected");
   });
+
+  currentLanguage = lang;
 
   button.classList.add("selected");
 
@@ -2149,8 +2149,8 @@ function chooseLanguage(lang,button){
 
 function chooseTheme(theme,button){
 
-  const themeButtons =
-    document.querySelectorAll(".setup-step:nth-of-type(2) .option-btn");
+  const buttons =
+    document.querySelectorAll("#themeOptions .option-btn");
 
   if(currentTheme === theme){
 
@@ -2163,6 +2163,28 @@ function chooseTheme(theme,button){
     return;
 
   }
+
+  buttons.forEach(b=>{
+    b.classList.remove("selected");
+  });
+
+  document.body.classList.forEach(className=>{
+
+    if(className.startsWith("theme-")){
+
+      document.body.classList.remove(className);
+
+    }
+
+  });
+
+  currentTheme = theme;
+
+  button.classList.add("selected");
+
+  document.body.classList.add("theme-"+theme);
+
+}
 
   currentTheme = theme;
 
