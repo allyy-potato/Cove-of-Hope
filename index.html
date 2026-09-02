@@ -3768,6 +3768,8 @@ console.log("Report response:", response.status, await response.text());
 
   const token=localStorage.getItem("coveCreatorAccessToken");
 
+console.log("Creator token exists:", !!token);
+     
   if(!token){
     list.innerHTML="Please log in as creator first.";
     return;
