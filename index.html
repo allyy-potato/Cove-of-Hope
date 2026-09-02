@@ -3710,11 +3710,9 @@ async function submitReport(){
       method: "POST",
 
       headers: {
-        "apikey": SUPA_KEY,
-        "Authorization": `Bearer ${SUPA_KEY}`,
-        "Content-Type": "application/json"
-      },
-
+  "apikey": SUPA_KEY,
+  "Content-Type": "application/json"
+},
       body: JSON.stringify({
         report_type: type,
         description: text
