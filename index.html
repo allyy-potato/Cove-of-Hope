@@ -258,44 +258,70 @@ a{
 /* ---------- LOGO ---------- */
 
 .logo{
-  display:flex;
+  text-align:center;
+  display:inline-flex;
   flex-direction:column;
   align-items:center;
-  text-align:center;
-  margin-bottom:25px;
+  text-decoration:none;
 }
 
-.cove-logo-mark{
-  width:180px;
-  height:180px;
-  margin-bottom:25px;
+.logo-star{
+  width:58px;
+  height:58px;
+  position:relative;
+  margin-bottom:7px;
 }
 
-.cove-logo-mark svg{
-  width:100%;
-  height:100%;
+.logo-star::before,
+.logo-star::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  background:linear-gradient(135deg,#ff49bd,#8d49d6);
+  clip-path:polygon(
+    50% 0,
+    60% 38%,
+    100% 50%,
+    60% 62%,
+    50% 100%,
+    40% 62%,
+    0 50%,
+    40% 38%
+  );
+  filter:drop-shadow(0 0 7px #d34dcc);
+}
+
+.logo-star::after{
+  inset:18px;
+  background:#21152f;
+}
+
+.logo-a{
+  position:absolute;
+  z-index:3;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:900;
+  color:white;
 }
 
 .logo-name{
-  font-family:"Orbitron","Arial",sans-serif;
-  font-size:2.2rem;
-  font-weight:700;
+  font-weight:900;
+  letter-spacing:3px;
   color:white;
-  letter-spacing:4px;
-  margin:0 0 8px 0;
-  text-transform:uppercase;
+  font-size:19px;
 }
 
 .logo-tag{
-  font-family:"Montserrat","Arial",sans-serif;
-  font-size:.95rem;
-  font-weight:400;
-  color:#df8b99;
-  letter-spacing:7px;
-  margin:0;
-  text-transform:uppercase;
+  color:#d9b8e9;
+  font-size:8px;
+  letter-spacing:3px;
+  margin-top:4px;
 }
-   
+
 /* ---------- HEADER ---------- */
 
 header{
@@ -915,74 +941,13 @@ footer button{
   <div class="setup-card">
 
     <div class="logo">
+      <div class="logo-star">
+        <span class="logo-a">A</span>
+      </div>
+      <div class="logo-name">COVE OF HOPE</div>
+      <div class="logo-tag">A SITE TO FEEL CONNECTED</div>
+    </div>
 
- <div class="cove-logo-mark">
-
-  <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
-
-    <defs>
-
-      <linearGradient id="coveGradient"
-        x1="0%" y1="0%"
-        x2="100%" y2="100%">
-
-        <stop offset="0%" stop-color="#ff4fc3"/>
-        <stop offset="50%" stop-color="#d936c8"/>
-        <stop offset="100%" stop-color="#8655e5"/>
-
-      </linearGradient>
-
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge>
-          <feMergeNode in="blur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
-
-    </defs>
-
-    <g
-      fill="none"
-      stroke="url(#coveGradient)"
-      stroke-width="7"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      filter="url(#glow)"
-    >
-
-      <path d="M90 18 L48 90 L90 162"/>
-
-      <path d="M90 18 L132 90 L90 162"/>
-
-      <path d="M67 103 L90 58 L113 103"/>
-
-      <path d="M77 88 L103 88"/>
-
-    </g>
-
-    <g
-      stroke="url(#coveGradient)"
-      stroke-linecap="round"
-      opacity=".35"
-    >
-
-      <line x1="30" y1="145" x2="150" y2="145" stroke-width="4"/>
-      <line x1="42" y1="154" x2="138" y2="154" stroke-width="3"/>
-      <line x1="58" y1="162" x2="122" y2="162" stroke-width="2"/>
-
-    </g>
-
-  </svg>
-
-</div>
-
-  <div class="logo-name">COVE OF HOPE</div>
-
-  <div class="logo-tag">A SITE TO FEEL CONNECTED</div>
-
-</div>
-     
     <h1 id="setupTitle">Welcome to Cove of Hope</h1>
    <p id="setupDescription">
   A safe place to feel heard, receive encouragement &amp; motivation
