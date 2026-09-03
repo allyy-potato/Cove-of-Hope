@@ -2484,6 +2484,10 @@ run:"Exécuter"
 
 };
 
+function t(key){
+  return translations[currentLanguage][key] || key;
+}
+   
    function applyTranslations(){
 
   const t=translations[currentLanguage];
@@ -3591,63 +3595,58 @@ function showActivity(type){
   }
 
 
-  if(type==="look"){
+if(type==="look"){
 
-    box.innerHTML=`
+  box.innerHTML=`
 
-      <h2>👀 Look Around Me</h2>
+    <h2>${t("lookTitle")}</h2>
 
-      <div class="exercise">
+    <div class="exercise">
 
-        <h3>Find 5 Things That Make You Happy</h3>
+      <h3>${t("findHappy")}</h3>
 
-        <p>
-          Look around your environment and find five small things
-          that make you smile, feel comfortable, or remind you
-          of something positive.
-        </p>
+      <p>
+        ${t("findHappyDesc")}
+      </p>
 
-      </div>
+    </div>
 
 
-      <div class="exercise">
+    <div class="exercise">
 
-        <h3>Think of 1 Nice Thing That Happened Recently</h3>
+      <h3>${t("niceThing")}</h3>
 
-        <p>
-          It can be something tiny — a funny moment, a nice
-          message, good food, a pleasant sound or anything else.
-        </p>
+      <p>
+        ${t("niceThingDesc")}
+      </p>
 
-      </div>
-
-
-      <div class="exercise">
-
-        <h3>Think of 3 Things You're Grateful For</h3>
-
-        <p>
-          They don't need to be huge. Small things count.
-        </p>
-
-      </div>
+    </div>
 
 
-      <div class="card">
+    <div class="exercise">
 
-        <h3>Why can this help?</h3>
+      <h3>${t("grateful")}</h3>
 
-        <p>
-          These activities gently shift your attention toward
-          things happening around you instead of staying completely
-          focused on stressful thoughts.
-        </p>
+      <p>
+        ${t("gratefulDesc")}
+      </p>
 
-      </div>
+    </div>
 
-    `;
 
-  }
+    <div class="card">
+
+      <h3>${t("whyHelp")}</h3>
+
+      <p>
+        ${t("lookHelp")}
+      </p>
+
+    </div>
+
+  `;
+
+}
 
 
   if(type==="games"){
