@@ -1930,6 +1930,8 @@ en:{
   kindnessSubtitle:"Choose what you need to hear today.",
   activitiesTitle:"Calming & Interactive Activities",
   supportTitle:"Support Resources",
+   wallTitle:"You are not alone",
+wallDescription:"Messages submitted by visitors will appear here after a real shared database is connected.",
    activitiesChoose:"Choose something that matches what you need right now.",
 calmingTitle:"Calming Activities",
 calmingDesc:"Breathing techniques and a mindful minute.",
@@ -2025,6 +2027,8 @@ zh:{
   kindnessSubtitle:"选择今天你想听到的话。",
   activitiesTitle:"平静与互动活动",
   supportTitle:"支持资源",
+   wallTitle:"你并不孤单",
+wallDescription:"访客提交的留言会在连接真实共享数据库后显示在这里。",
 
 activitiesChoose:"选择一个符合你现在需要的活动。",
 calmingTitle:"平静活动",
@@ -2121,6 +2125,8 @@ ms:{
   kindnessSubtitle:"Pilih perkara yang anda mahu dengar hari ini.",
   activitiesTitle:"Aktiviti Menenangkan & Interaktif",
   supportTitle:"Sumber Sokongan",
+   wallTitle:"Anda tidak keseorangan",
+wallDescription:"Mesej yang dihantar oleh pengunjung akan dipaparkan di sini selepas pangkalan data perkongsian sebenar disambungkan.",
 
 activitiesChoose:"Pilih aktiviti yang sesuai dengan apa yang anda perlukan sekarang.",
 calmingTitle:"Aktiviti Menenangkan",
@@ -2217,6 +2223,8 @@ ja:{
   kindnessSubtitle:"今日聞きたい言葉を選びましょう。",
   activitiesTitle:"落ち着く・インタラクティブな活動",
 supportTitle:"サポートリソース",
+   wallTitle:"あなたは一人ではありません",
+wallDescription:"訪問者が送信したメッセージは、実際の共有データベースに接続された後、ここに表示されます。",
 
 activitiesChoose:"今必要なものに合った活動を選んでください。",
 calmingTitle:"リラックス活動",
@@ -2313,6 +2321,8 @@ ko:{
   kindnessSubtitle:"오늘 듣고 싶은 말을 골라보세요.",
   activitiesTitle:"마음을 편안하게 하는 활동",
 supportTitle:"지원 자료",
+   wallTitle:"당신은 혼자가 아닙니다",
+wallDescription:"방문자가 제출한 메시지는 실제 공유 데이터베이스가 연결된 후 여기에 표시됩니다.",
 
 activitiesChoose:"지금 필요한 것에 맞는 활동을 선택해 보세요.",
 calmingTitle:"마음을 편안하게 하는 활동",
@@ -2409,6 +2419,8 @@ fr:{
   kindnessSubtitle:"Choisis ce que tu as besoin d'entendre aujourd'hui.",
   activitiesTitle:"Activités calmantes et interactives",
 supportTitle:"Ressources d'aide",
+   wallTitle:"Vous n'êtes pas seul",
+wallDescription:"Les messages envoyés par les visiteurs apparaîtront ici après la connexion d'une véritable base de données partagée.",
 
 activitiesChoose:"Choisissez une activité qui correspond à ce dont vous avez besoin en ce moment.",
 calmingTitle:"Activités relaxantes",
@@ -2540,21 +2552,17 @@ function chooseTheme(theme,button){
 
 }
    
-function applyTranslations(){
+const kindnessCategories={
 
-  const t=translations[currentLanguage];
+alone:"wallTitle",
 
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
+can:"can",
+important:"important",
+enough:"enough",
+proud:"proud",
+hope:"hope"
 
-    const key=el.getAttribute("data-i18n");
-
-    if(t[key]){
-      el.textContent=t[key];
-    }
-
-  });
-
-}
+};
 
 
 /* ---------- ENTER WEBSITE ---------- */
@@ -3136,7 +3144,7 @@ function selectKindness(category,button){
   button.classList.add("active");
 
   document.getElementById("wallTitle").textContent=
-    kindnessCategories[category];
+  translations[currentLanguage][kindnessCategories[category]];
 
   renderKindnessWall();
 
