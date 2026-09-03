@@ -3651,43 +3651,41 @@ if(type==="look"){
 
   if(type==="games"){
 
-    box.innerHTML=`
+  box.innerHTML=`
 
-      <h2>🎮 Interactive Game Apps</h2>
+    <h2>${t("gamesTitle")}</h2>
+
+    <p>
+      ${t("gamesLongDesc")}
+    </p>
+
+    <a class="link-card"
+    href="https://play.google.com/store/apps/details?id=com.dramaton.slime&hl=en-US"
+    target="_blank">
+      ${t("virtualSlime")}
+    </a>
+
+    <a class="link-card"
+    href="https://www.unwindkit.com/fidget"
+    target="_blank">
+      ${t("fidgetPad")}
+    </a>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>${t("credits")}</h3>
 
       <p>
-        Short, simple interactive activities can be a fun way
-        to give your attention something different to focus on.
+        ${t("slimeCredit")}
       </p>
 
-      <a class="link-card"
-      href="https://play.google.com/store/apps/details?id=com.dramaton.slime&hl=en-US"
-      target="_blank">
-        🟢 Virtual Slime App
-      </a>
+      <p>
+        ${t("fidgetCredit")}
+      </p>
+    </div>
 
-      <a class="link-card"
-      href="https://www.unwindkit.com/fidget"
-      target="_blank">
-        🟣 Online Fidget Pad — Interactive Fidget Pad
-      </a>
+  `;
 
-            <div class="card" style="margin-top:20px;">
-        <h3>📜 Credits</h3>
-
-        <p>
-          🟢 Virtual Slime App — Dramaton
-        </p>
-
-        <p>
-          🟣 Online Fidget Pad — Unwind Kit
-        </p>
-      </div>
-
-    `;
-
-  }
-
+}
 
   if(type==="break"){
 
