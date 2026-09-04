@@ -3689,69 +3689,65 @@ if(type==="look"){
 
   if(type==="break"){
 
-    box.innerHTML=`
+  box.innerHTML=`
 
-      <h2>☕ Take a Break</h2>
+    <h2>${t("breakTitle")}</h2>
 
-      <div class="exercise">
+    <div class="exercise">
 
-        <h3>🎵 Listen to Calming Music</h3>
-
-        <p>
-          Put on some calming music and give yourself a few
-          minutes away from whatever has been stressing you.
-        </p>
-
-        <a class="primary-btn"
-        href="https://www.youtube.com/watch?v=I3OJUwILelU&list=RDI3OJUwILelU"
-        target="_blank">
-          Listen
-        </a>
-
-      </div>
-
-
-      <div class="exercise">
-
-        <h3>📺 Watch a Video on Why We Should Relax</h3>
-
-        <a class="primary-btn"
-        href="https://www.youtube.com/watch?v=vD0w_gOEbUI"
-        target="_blank">
-          Watch Video
-        </a>
-
-      </div>
-
-
-      <div class="exercise">
-
-        <h3>📵 Take a 1-Minute Screen Time Break</h3>
-
-        <p>
-          Put your device down for one minute. Look around,
-          stretch gently, breathe, or simply sit quietly.
-        </p>
-
-        <button class="primary-btn"
-        onclick="startScreenBreak()">
-          Start 1 Minute
-        </button>
-
-        <div id="screenTimer" class="timer"></div>
-
-      </div>
-
+      <h3>${t("listenMusic")}</h3>
 
       <p>
-        Short breaks can give your attention a chance to reset
-        and can help you step away from stressful thoughts.
+        ${t("listenMusicDesc")}
       </p>
 
-    `;
+      <a class="primary-btn"
+      href="https://www.youtube.com/watch?v=I3OJUwILelU&list=RDI3OJUwILelU"
+      target="_blank">
+        ${t("listen")}
+      </a>
 
-  }
+    </div>
 
+
+    <div class="exercise">
+
+      <h3>${t("relaxVideo")}</h3>
+
+      <a class="primary-btn"
+      href="https://www.youtube.com/watch?v=vD0w_gOEbUI"
+      target="_blank">
+        ${t("watchVideo")}
+      </a>
+
+    </div>
+
+
+    <div class="exercise">
+
+      <h3>${t("screenBreak")}</h3>
+
+      <p>
+        ${t("screenBreakDesc")}
+      </p>
+
+      <button class="primary-btn"
+      onclick="startScreenBreak()">
+        ${t("startScreen")}
+      </button>
+
+      <div id="screenTimer" class="timer"></div>
+
+    </div>
+
+
+    <p>
+      ${t("breakHelp")}
+    </p>
+
+  `;
+
+}
 
   if(type==="create"){
 
