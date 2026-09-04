@@ -3745,55 +3745,44 @@ if(type==="look"){
 
   if(type==="create"){
 
-    box.innerHTML=`
+  box.innerHTML=`
 
-      <h2>🧩 Create an Interactive Mini Game</h2>
+    <h2>🧩 ${t("miniGameTitle")}</h2>
 
-      <p>
-        Think of a game idea you would like to create.
-      </p>
+    <p>
+      ${t("miniGame1")}
+    </p>
 
-      <p>
-        Describe your idea to an AI tool and ask it to create
-        a HTML for your game.
-      </p>
+    <p>
+      ${t("miniGame2")}
+    </p>
 
-      <p>
-        You can then click
-        <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default_default"
-        target="_blank">
-        this website
-        </a>,
-        and go to this site, which will help you create the game.
-      </p>
+    <p>
+      ${t("miniGame3")}
+    </p>
 
-      <p>
-        Clear the template HTML in the site and copy the one AI
-        created for your game. And click <strong>Run</strong>.
-      </p>
+    <p>
+      <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default_default"
+      target="_blank">
+        W3Schools HTML Editor
+      </a>
+    </p>
 
-      <p>
-        Test your game, and if you want to change it, go back to
-        the AI tool and tell it your changes. Then, ask it to
-        recreate the HTML code, and recopy it until you like your game.
-      </p>
+    <p>
+      ${t("miniGame4")}
+    </p>
 
-      <p>
-        Creating something yourself can also be a fun way to focus
-        your attention and explore your creativity.
-      </p>
+    <p>
+      ${t("miniGame5")}
+    </p>
 
-    `;
+    <p>
+      ${t("miniGame6")}
+    </p>
 
-  }
-
-  box.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+  `;
 
 }
-
 
 /* ---------- TIMERS ---------- */
 
