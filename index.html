@@ -3524,77 +3524,71 @@ function showActivity(type){
 
   if(type==="breathing"){
 
-    box.innerHTML=`
+  box.innerHTML=`
 
-      <h2>🌬️ Calming Activities & Breathing Techniques</h2>
+    <h2>🌬️ ${t("breathingTitle")}</h2>
 
-      <div class="exercise">
+    <div class="exercise">
 
-        <h3>1. 4-7-8 Breathing</h3>
+      <h3>${t("breathingExercise1")}</h3>
 
-        <p>
-          Breathe in gently for 4 seconds, hold for 7 seconds,
-          then breathe out slowly for 8 seconds.
-        </p>
+      <p>
+        ${t("breathingExercise1Desc")}
+      </p>
 
-        <button class="primary-btn"
-        onclick="startBreathingTimer()">
-          Try It
-        </button>
+      <button class="primary-btn"
+      onclick="startBreathingTimer()">
+        ${t("tryIt")}
+      </button>
 
-        <div id="breathingTimer" class="timer"></div>
+      <div id="breathingTimer" class="timer"></div>
 
-      </div>
-
-
-      <div class="exercise">
-
-        <h3>2. 5-4-3-2-1 Grounding</h3>
-
-        <p>
-          Notice 5 things you can see, 4 things you can touch,
-          3 things you can hear, 2 things you can smell,
-          and 1 thing you can taste or imagine tasting.
-        </p>
-
-        <p>
-          This activity can help bring your attention back to
-          the present moment.
-        </p>
-
-      </div>
+    </div>
 
 
-      <div class="exercise">
+    <div class="exercise">
 
-        <h3>3. Take a Mindful Minute</h3>
+      <h3>${t("breathingExercise2")}</h3>
 
-        <p>
-          Pause for one minute. Notice your breathing, the
-          feeling of your feet or body, and the sounds around you.
-        </p>
+      <p>
+        ${t("breathingExercise2Desc")}
+      </p>
 
-        <button class="primary-btn"
-        onclick="startMindfulMinute()">
-          Start One Minute
-        </button>
+      <p>
+        ${t("groundingHelp")}
+      </p>
 
-        <div id="mindfulTimer" class="timer"></div>
-
-      </div>
+    </div>
 
 
-      <a class="link-card"
-      href="https://www.youtube.com/results?search_query=guided+breathing+exercises+for+teens"
-      target="_blank">
-        🌿 Explore more breathing exercises
-      </a>
+    <div class="exercise">
 
-    `;
+      <h3>${t("breathingExercise3")}</h3>
 
-  }
+      <p>
+        ${t("breathingExercise3Desc")}
+      </p>
+
+      <button class="primary-btn"
+      onclick="startMindfulMinute()">
+        ${t("startOneMinute")}
+      </button>
+
+      <div id="mindfulTimer" class="timer"></div>
+
+    </div>
 
 
+    <a class="link-card"
+    href="https://www.youtube.com/results?search_query=guided+breathing+exercises+for+teens"
+    target="_blank">
+      ${t("moreBreathing")}
+    </a>
+
+  `;
+
+}
+   
 if(type==="look"){
 
   box.innerHTML=`
