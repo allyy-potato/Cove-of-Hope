@@ -2534,16 +2534,6 @@ function chooseLanguage(lang,button){
   const buttons =
     document.querySelectorAll("#languageOptions .option-btn");
 
-  if(currentLanguage === lang){
-
-    currentLanguage = null;
-
-    button.classList.remove("selected");
-
-    return;
-
-  }
-
   buttons.forEach(b=>{
     b.classList.remove("selected");
   });
@@ -2555,8 +2545,7 @@ function chooseLanguage(lang,button){
   applyTranslations();
 
 }
-
-
+   
 function chooseTheme(theme,button){
 
   const buttons =
