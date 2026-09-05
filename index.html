@@ -391,128 +391,6 @@ header{
   border-radius:10px;
 }
 
-/* ---------- MOBILE NAVIGATION ---------- */
-
-.mobile-menu-btn{
-  display:none;
-}
-
-.mobile-menu{
-  display:none;
-}
-
-
-/* ---------- PHONE + TABLET ---------- */
-
-@media (max-width: 767px){
-
-  .navbar{
-    padding:8px 14px;
-    min-height:72px;
-    gap:8px;
-  }
-
-  /* Smaller logo */
-
-  .nav-brand{
-    padding:0;
-    flex:1;
-    align-items:flex-start;
-  }
-
-  .nav-brand .logo{
-    transform:scale(.82);
-    transform-origin:left center;
-  }
-
-  .nav-brand .logo-name{
-    font-size:14px;
-    letter-spacing:2px;
-  }
-
-  .nav-brand .logo-tag{
-    font-size:7px;
-    letter-spacing:2px;
-  }
-
-  /* Hide desktop navigation */
-
-  .nav-links{
-    display:none;
-  }
-
-  .nav-actions{
-    display:none;
-  }
-
-  /* Hamburger */
-
-  .mobile-menu-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    width:46px;
-    height:46px;
-    flex-shrink:0;
-
-    border:1px solid var(--border);
-    border-radius:12px;
-
-    background:var(--surface);
-    color:var(--text);
-
-    font-size:25px;
-    line-height:1;
-
-    cursor:pointer;
-  }
-
-  /* Mobile menu */
-
-  .mobile-menu{
-    display:none;
-    width:100%;
-    box-sizing:border-box;
-
-    padding:10px 14px 14px;
-
-    background:var(--header);
-    border-bottom:1px solid var(--border);
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-  }
-
-  .mobile-menu.open{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-  }
-
-  .mobile-menu button{
-    width:100%;
-    min-height:46px;
-
-    padding:10px 14px;
-
-    border:0;
-    border-radius:10px;
-
-    background:transparent;
-    color:var(--text);
-
-    text-align:left;
-    font-size:15px;
-    font-weight:600;
-
-    cursor:pointer;
-  }
-
-  .mobile-menu button:hover{
-    background:var(--surface2);
-  }
-
-}
-   
 /* ---------- PAGES ---------- */
 
 main{
@@ -1163,57 +1041,12 @@ footer button{
 
   </div>
 
-   <div class="nav-actions">
+  <div class="nav-actions">
     <button class="small-btn" onclick="openSafety()" data-i18n="safety">Safety</button>
     <button class="small-btn" onclick="openReport()" data-i18n="report">Report</button>
   </div>
 
-  <button
-    class="mobile-menu-btn"
-    type="button"
-    onclick="toggleMobileMenu()"
-    aria-label="Open navigation menu"
-  >
-    ☰
-  </button>
-
 </nav>
-
-<div class="mobile-menu" id="mobileMenu">
-
-  <button onclick="showPage('home');closeMobileMenu()" data-i18n="home">
-    Home
-  </button>
-
-  <button onclick="showPage('emotions');closeMobileMenu()" data-i18n="express">
-    Express
-  </button>
-
-  <button onclick="showPage('kindness');closeMobileMenu()" data-i18n="kindness">
-    Kindness
-  </button>
-
-  <button onclick="showPage('activities');closeMobileMenu()" data-i18n="activities">
-    Activities
-  </button>
-
-  <button onclick="showPage('support');closeMobileMenu()" data-i18n="support">
-    Support
-  </button>
-
-  <button onclick="showPage('about');closeMobileMenu()" data-i18n="about">
-    About Us
-  </button>
-
-  <button onclick="openSafety();closeMobileMenu()" data-i18n="safety">
-    Safety
-  </button>
-
-  <button onclick="openReport();closeMobileMenu()" data-i18n="report">
-    Report
-  </button>
-
-</div>
 
 </header>
 
@@ -2047,23 +1880,7 @@ footer button{
 
 </div>
 
-function toggleMobileMenu(){
 
-  const menu = document.getElementById("mobileMenu");
-
-  menu.classList.toggle("open");
-
-}
-
-
-function closeMobileMenu(){
-
-  const menu = document.getElementById("mobileMenu");
-
-  menu.classList.remove("open");
-
-}
-   
 <script>
 /* =========================================================
    COVE OF HOPE JAVASCRIPT
